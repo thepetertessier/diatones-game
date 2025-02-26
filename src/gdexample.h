@@ -10,6 +10,7 @@ class GDExample : public Sprite2D {
 
 private:
 	double time_passed;
+	double amplitude;
 
 protected:
 	static void _bind_methods();
@@ -17,6 +18,9 @@ protected:
 public:
 	GDExample();
 	~GDExample();
+    
+	void set_amplitude(const double p_amplitude);
+	double get_amplitude() const;
 
 	void _process(double delta) override;
 };
