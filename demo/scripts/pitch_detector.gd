@@ -1,7 +1,8 @@
 extends PitchDetector
 
 var capture: AudioEffectCapture
-const buffer_size: int = 1024
+const buffer_size: int = 1024  # Must match C++ script
+const sample_rate: int = 44100
 
 func _ready():
 	# Ensure the bus name matches the one set in the Audio Bus Layout
@@ -11,7 +12,7 @@ func _ready():
 func _process(_delta):
 	if capture and capture.can_get_buffer(buffer_size):  # Adjust buffer size as needed
 		var audio_buffer = capture.get_buffer(buffer_size)
-		var pitch = detect_pitch(audio_buffer, buffer_size)
+		var pitch = detect_pitch(audio_buffer, sample_rate)
 		print("Detected Frequency: ", pitch)
 		
 		# Get system stats
