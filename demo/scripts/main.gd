@@ -6,7 +6,6 @@ var pitch_history = []
 var max_history = 100
 
 # Screen and chart configuration.
-var ball_x = 50       # Fixed x position for the ball.
 var chart_start = Vector2(100, 300)  # Starting point (bottom left) of the chart.
 var chart_width = 3000
 var chart_height = 1000
@@ -28,15 +27,6 @@ func _process(delta):
 	queue_redraw()
 	
 func _draw():
-	# Map the current pitch to a vertical position for the ball.
-	# Higher pitch moves the ball higher on the screen.
-	var current_pitch = pitch_history[pitch_history.size()-1] if pitch_history.size() > 0 else min_pitch
-	var ball_y = lerp(400, 0, clamp((current_pitch - min_pitch) / float(max_pitch - min_pitch), 0, 1))
-	var ball_pos = Vector2(ball_x, ball_y)
-	
-	# Draw the ball.
-	draw_circle(ball_pos, 10, Color.RED)
-	
 	# Prepare points for the line chart.
 	var points = []
 	for i in range(pitch_history.size()):
