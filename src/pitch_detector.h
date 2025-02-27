@@ -1,38 +1,30 @@
 #ifndef PITCH_DETECTOR_H
 #define PITCH_DETECTOR_H
 
-#include <godot_cpp/classes/node.hpp>
+#include <godot_cpp/classes/audio_server.hpp>
+#include <godot_cpp/classes/audio_effect_capture.hpp>
+#include <godot_cpp/classes/audio_stream_player.hpp>
+#include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/core/class_db.hpp>
-#include <vector>
+#include <godot_cpp/variant/packed_vector2_array.hpp>
+#include <godot_cpp/godot.hpp>
 
 using namespace godot;
 
 class PitchDetector : public Node {
-	GDCLASS(PitchDetector, Node)
+    GDCLASS(PitchDetector, Node)
 
 private:
-	int sample_rate;
-    int buffer_size;
-    std::vector<double> audio_buffer;
-    double detected_pitch; // in Hz
+    static constexpr int buffer_size = 1024;
 
 protected:
-	static void _bind_methods();
+    static void _bind_methods();
 
 public:
-	PitchDetector();
-	~PitchDetector();
+    PitchDetector();
+    ~PitchDetector();
 
-	void process_audio(const PackedFloat64Array &audio_samples);
-    double detect_pitch(const std::vector<double> &samples);
-
-    void set_sample_rate(int sample_rate);
-    int get_sample_rate() const;
-
-    void set_buffer_size(int buffer_size);
-    int get_buffer_size() const;
-
-    void emit_detected_pitch();
+    double detect_pitch(const PackedVector2Array &audio_buffer, const int sample_rate = 44100);
 };
 
-#endif // PITCH_ANALYZER_H
+#endif // PITCH_DETECTOR_H
