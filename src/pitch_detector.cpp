@@ -4,19 +4,77 @@
 #include <vector>
 #include <cmath>
 #include <limits>
+#include <algorithm>
 #include "pitch_detector.h"
 
 using namespace godot;
 
 void PitchDetector::_bind_methods() {
-    ClassDB::bind_method(D_METHOD("detect_pitch", "audio_buffer", "sample_rate"), &PitchDetector::detect_pitch);
+    ClassDB::bind_method(D_METHOD("detect_pitch", "audio_buffer", "sample_rate", "f_min", "f_max"), &PitchDetector::detect_pitch);
 }
 
 PitchDetector::PitchDetector() {}
 PitchDetector::~PitchDetector() {}
 
-// Returns the detected frequency in Hz using a basic autocorrelation pitch detection.
-double PitchDetector::detect_pitch(const PackedVector2Array &audio_buffer, const int sample_rate) {
+std::vector<double> PitchDetector::compute_nsdf(const std::vector<double>& signal, int max_tau) {
+    int N = signal.size();
+    std::vector<double> nsdf(max_tau, 0.0);
+
+    for (int tau = 1; tau < max_tau; ++tau) {
+        double acf = 0.0, norm = 0.0;
+
+        for (int i = 0; i < N - tau; ++i) {
+            acf += signal[i] * signal[i + tau];
+            norm += signal[i] * signal[i] + signal[i + tau] * signal[i + tau];
+        }
+
+        nsdf[tau] = (norm > 0) ? (2.0 * acf / norm) : 0.0;
+    }
+    return nsdf;
+}
+
+// Find the highest peak in NSDF within a given range
+int PitchDetector::find_best_peak(const std::vector<double>& nsdf, int min_tau, int max_tau) {
+    int best_tau = -1;
+    double max_value = -1.0;
+
+    for (int tau = min_tau; tau < max_tau - 1; ++tau) {
+        if (nsdf[tau] > max_value && nsdf[tau] > nsdf[tau - 1] && nsdf[tau] > nsdf[tau + 1]) {
+            max_value = nsdf[tau];
+            best_tau = tau;
+        }
+    }
+    return best_tau;
+}
+
+// Apply parabolic interpolation for a more precise pitch estimate
+double PitchDetector::parabolic_interpolation(const std::vector<double>& nsdf, int tau) {
+    if (tau < 1 || tau >= nsdf.size() - 1)
+        return tau; // No interpolation possible at boundaries
+
+    double alpha = nsdf[tau - 1];
+    double beta = nsdf[tau];
+    double gamma = nsdf[tau + 1];
+
+    return tau + 0.5 * (alpha - gamma) / (alpha - 2 * beta + gamma);
+}
+
+// Main function to estimate pitch using McLeod Pitch Method
+double PitchDetector::detect_pitch_double(const std::vector<double>& signal, const int sample_rate, double f_min, double f_max) {
+    int max_tau = static_cast<int>(sample_rate / f_min);
+    int min_tau = static_cast<int>(sample_rate / f_max);
+
+    std::vector<double> nsdf = compute_nsdf(signal, max_tau);
+    int best_tau = find_best_peak(nsdf, min_tau, max_tau);
+
+    if (best_tau == -1)
+        return -1.0; // No pitch detected
+
+    double refined_tau = parabolic_interpolation(nsdf, best_tau);
+    return sample_rate / refined_tau; // Convert period to frequency
+}
+
+double PitchDetector::detect_pitch(const PackedVector2Array &audio_buffer, const int sample_rate, double f_min, double f_max) {
     int N = audio_buffer.size();
     if (N <= 0)
         return 0.0;
@@ -29,55 +87,5 @@ double PitchDetector::detect_pitch(const PackedVector2Array &audio_buffer, const
         mono.push_back((sample.x + sample.y) * 0.5);
     }
 
-    // Define plausible pitch range (here: 50 Hz to 1000 Hz)
-    int min_lag = sample_rate / 1000; // ~44 samples → ~1000 Hz
-    int max_lag = sample_rate / 50;   // ~882 samples → ~50 Hz
-
-    // Ensure our lag range fits within the buffer length
-    if (max_lag > N - 1) {
-        max_lag = N - 1;
-    }
-    if (min_lag < 1) {
-        min_lag = 1;
-    }
-    if (min_lag >= max_lag)
-        return 0.0;
-
-    // Compute autocorrelation for each lag in the defined range.
-    std::vector<double> autocorr;
-    autocorr.resize(max_lag - min_lag + 1);
-    for (int lag = min_lag; lag <= max_lag; lag++) {
-        double sum = 0.0;
-        for (int i = 0; i < N - lag; i++) {
-            sum += mono[i] * mono[i + lag];
-        }
-        autocorr[lag - min_lag] = sum;
-    }
-
-    // Find the lag that gives the maximum autocorrelation value.
-    int best_index = 0;
-    double best_corr = -std::numeric_limits<double>::infinity();
-    for (size_t i = 0; i < autocorr.size(); i++) {
-        if (autocorr[i] > best_corr) {
-            best_corr = autocorr[i];
-            best_index = i;
-        }
-    }
-    double best_lag = best_index + min_lag;
-
-    // Refine the lag estimate using parabolic interpolation if possible.
-    if (best_index > 0 && best_index < autocorr.size() - 1) {
-        double c0 = autocorr[best_index - 1];
-        double c1 = autocorr[best_index];
-        double c2 = autocorr[best_index + 1];
-        double denom = 2 * (2 * c1 - c0 - c2);
-        if (std::fabs(denom) > 1e-6) {
-            double delta = (c0 - c2) / denom;
-            best_lag += delta;
-        }
-    }
-
-    // Convert the period (in samples) to frequency (in Hz)
-    double frequency = sample_rate / best_lag;
-    return frequency;
+    return detect_pitch_double(mono, sample_rate, f_min, f_max);
 }

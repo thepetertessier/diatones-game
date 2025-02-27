@@ -1,11 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://c8o5f0eniem1n"]
+[gd_scene load_steps=5 format=3 uid="uid://c8o5f0eniem1n"]
 
 [ext_resource type="Texture2D" uid="uid://c2qv54pj4pyk4" path="res://icon.svg" id="1_e2hnw"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_vehrk"]
 [ext_resource type="Script" path="res://scripts/pitch_detector.gd" id="3_v50jj"]
 
 [sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_u0hj5"]
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_vehrk")
 
 [node name="GDExample" type="Sprite2D" parent="."]
 position = Vector2(54.8278, 5.086)
@@ -19,3 +21,5 @@ bus = &"Microphone"
 
 [node name="PitchDetector" type="PitchDetector" parent="."]
 script = ExtResource("3_v50jj")
+
+[connection signal="_pitch_updated" from="PitchDetector" to="." method="_on_pitch_detector__pitch_updated"]
