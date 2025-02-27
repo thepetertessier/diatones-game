@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://c8o5f0eniem1n"]
+[gd_scene load_steps=5 format=3 uid="uid://c8o5f0eniem1n"]
 
 [ext_resource type="Texture2D" uid="uid://c2qv54pj4pyk4" path="res://icon.svg" id="1_e2hnw"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_vehrk"]
+[ext_resource type="Script" path="res://scripts/microphone_capture.gd" id="3_23336"]
+
+[sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_u0hj5"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_vehrk")
@@ -9,8 +12,14 @@ script = ExtResource("1_vehrk")
 [node name="GDExample" type="GDExample" parent="."]
 amplitude = 5.0
 speed = 0.73
-position = Vector2(-36.7653, 52.1933)
+position = Vector2(-44.9868, 4.14322)
 texture = ExtResource("1_e2hnw")
 centered = false
+
+[node name="MicrophoneCapture" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamMicrophone_u0hj5")
+autoplay = true
+bus = &"Microphone"
+script = ExtResource("3_23336")
 
 [connection signal="position_changed" from="GDExample" to="." method="_on_gd_example_position_changed"]
