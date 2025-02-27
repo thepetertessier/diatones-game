@@ -8,8 +8,8 @@ var max_history = 100
 # Screen and chart configuration.
 var ball_x = 50       # Fixed x position for the ball.
 var chart_start = Vector2(100, 300)  # Starting point (bottom left) of the chart.
-var chart_width = 400
-var chart_height = 200
+var chart_width = 3000
+var chart_height = 1000
 
 # Define the expected pitch range (adjust these values to your needs).
 var min_pitch = 50

@@ -19,7 +19,6 @@ func _process(_delta):
 	if capture and capture.can_get_buffer(buffer_size):  # Adjust buffer size as needed
 		var audio_buffer = capture.get_buffer(buffer_size)
 		pitch = detect_pitch(audio_buffer, sample_rate, min_frequency, max_frequency)
-		print("Detected Frequency: ", pitch)
 		emit_signal("_pitch_updated", pitch)
 		
 		# Get system stats
