@@ -2,6 +2,8 @@ extends PitchDetector
 
 signal _pitch_updated(pitch: float)
 
+@onready var pitch_label: Label = %PitchLabel
+
 var pitch: float = 0
 
 var capture: AudioEffectCapture
@@ -33,10 +35,11 @@ func _process(_delta):
 
 		# Print the stats
 		print("Pitch: %.2f Hz | CPU: %.2f%% | FPS: %d" % [pitch, cpu_usage, fps])
+		pitch_label.text = "Pitch: %.2f Hz" % pitch
 		
 func get_pitch(audio_buffer):
-	#return detect_pitch(audio_buffer, sample_rate, min_frequency, max_frequency)
-	return detect_pitch_from_spectrum_analyzer()
+	return detect_pitch(audio_buffer, sample_rate, min_frequency, max_frequency)
+	#return detect_pitch_from_spectrum_analyzer()
 	
 # Convert a MIDI note number to its frequency (in Hz).
 func midi_to_freq(midi: int) -> float:
@@ -49,7 +52,6 @@ func midi_to_note_name(midi: int) -> String:
 	var note = note_names[midi % 12]
 	return "%s%d" % [note, octave]
 
-# detect_pitch() returns the note name (as a String) for which the magnitude is highest.
 func detect_pitch_from_spectrum_analyzer() -> float:
 	if spectrum_analyzer == null:
 		return 0.0

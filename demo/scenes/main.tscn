@@ -5,8 +5,13 @@
 
 [sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_u0hj5"]
 
-[node name="Main" type="Node2D"]
-position = Vector2(400, 900)
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 400.0
+offset_top = 900.0
+offset_right = 400.0
+offset_bottom = 900.0
 script = ExtResource("1_vehrk")
 
 [node name="MicrophoneCapture" type="AudioStreamPlayer" parent="."]
@@ -16,5 +21,23 @@ bus = &"Microphone"
 
 [node name="PitchDetector" type="PitchDetector" parent="."]
 script = ExtResource("3_v50jj")
+
+[node name="PitchLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 31.0
+offset_top = -476.0
+offset_right = 366.0
+offset_bottom = -281.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 50
+text = "Pitch:"
+vertical_alignment = 1
 
 [connection signal="_pitch_updated" from="PitchDetector" to="." method="_on_pitch_detector__pitch_updated"]

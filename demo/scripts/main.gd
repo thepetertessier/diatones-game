@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 # History of pitch values over time.
 var pitch_history = []
