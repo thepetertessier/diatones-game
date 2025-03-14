@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://cnwdll8gkw8km"]
+
+[ext_resource type="Texture2D" uid="uid://dj6op7xwiodah" path="res://assets/note_animations/whole_note.png" id="1_83lh6"]
+[ext_resource type="Script" path="res://scripts/whole_note.gd" id="2_03stb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xsik8"]
+atlas = ExtResource("1_83lh6")
+region = Rect2(400, 0, 880, 720)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2cjic"]
+atlas = ExtResource("1_83lh6")
+region = Rect2(1680, 0, 880, 720)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xosrw"]
+atlas = ExtResource("1_83lh6")
+region = Rect2(2960, 0, 880, 720)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_572s3"]
+atlas = ExtResource("1_83lh6")
+region = Rect2(4240, 0, 880, 720)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fblxk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xsik8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cjic")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xosrw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_572s3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="WholeNote" type="AnimatedSprite2D"]
+position = Vector2(170, 72)
+sprite_frames = SubResource("SpriteFrames_fblxk")
+frame_progress = 0.244373
+script = ExtResource("2_03stb")

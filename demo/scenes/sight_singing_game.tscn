@@ -1,7 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://bw6bvmfop5wps"]
+[gd_scene load_steps=3 format=3 uid="uid://bw6bvmfop5wps"]
 
 [ext_resource type="PackedScene" uid="uid://cps1bh5tcsvsb" path="res://scenes/staff.tscn" id="1_7ovvg"]
+[ext_resource type="PackedScene" uid="uid://cnwdll8gkw8km" path="res://scenes/whole_note.tscn" id="2_m2vau"]
 
 [node name="SightSingingGame" type="Node2D"]
 
 [node name="Staff" parent="." instance=ExtResource("1_7ovvg")]
+visible = false
+
+[node name="WholeNote" parent="." instance=ExtResource("2_m2vau")]
+position = Vector2(690, 424)
