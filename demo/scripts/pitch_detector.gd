@@ -10,7 +10,7 @@ var spectrum_analyzer: AudioEffectSpectrumAnalyzerInstance
 const buffer_size: int = 2048  # Must match C++ script
 const sample_rate: int = 44100
 const min_frequency = 50
-const max_frequency = 1000
+const max_frequency = 500
 
 func _ready():
 	const CAPTURE_EFFECT_IDX = 1
