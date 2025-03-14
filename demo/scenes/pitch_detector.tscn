@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://px54gbcrgf4w"]
+
+[ext_resource type="Script" path="res://scripts/pitch_detector.gd" id="1_hlb5p"]
+
+[node name="PitchDetector" type="PitchDetector"]
+script = ExtResource("1_hlb5p")

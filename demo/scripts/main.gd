@@ -17,6 +17,7 @@ var max_pitch = 1000
 var pitch: float
 
 @onready var pitch_detector: PitchDetector = $PitchDetector
+@onready var pitch_label: Label = %PitchLabel
 
 func _process(delta):
 	# Update the pitch history.
@@ -25,6 +26,9 @@ func _process(delta):
 		pitch_history.pop_front()
 	
 	queue_redraw()
+	
+	# Update pitch label
+	pitch_label.text = "Pitch: %.2f Hz" % pitch
 	
 func _draw():
 	# Prepare points for the line chart.
@@ -43,6 +47,7 @@ func _draw():
 	
 	# Optional: Draw chart boundaries.
 	draw_rect(Rect2(chart_start.x, chart_start.y - chart_height, chart_width, chart_height), Color(1,1,1,0.2), false, 1)
+
 
 func _on_pitch_detector__pitch_updated(new_pitch: float) -> void:
 	pitch = new_pitch
