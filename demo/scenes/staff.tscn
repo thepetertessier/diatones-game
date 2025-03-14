@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cps1bh5tcsvsb"]
+[gd_scene load_steps=3 format=3 uid="uid://cps1bh5tcsvsb"]
 
 [ext_resource type="PackedScene" uid="uid://db2ttjw2sh3sv" path="res://scenes/staff_line.tscn" id="1_cghil"]
+[ext_resource type="Texture2D" uid="uid://cygdekoxe5bno" path="res://assets/images/treble_clef.png" id="2_kvukw"]
 
 [node name="Staff" type="Node2D"]
 
@@ -19,3 +20,8 @@ position = Vector2(0, 225)
 
 [node name="StaffLine5" parent="Lines" instance=ExtResource("1_cghil")]
 position = Vector2(0, 300)
+
+[node name="TrebleClef" type="Sprite2D" parent="."]
+position = Vector2(138, 166)
+scale = Vector2(0.831309, 0.831309)
+texture = ExtResource("2_kvukw")

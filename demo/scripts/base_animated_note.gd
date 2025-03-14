@@ -1,6 +1,8 @@
 extends AnimatedSprite2D
 class_name BaseAnimatedNote
 
+@onready var conductor: Node = %Conductor
+
 const frame_count := 4
 const FPS := 8
 const seconds_per_frame := 1.0 / FPS

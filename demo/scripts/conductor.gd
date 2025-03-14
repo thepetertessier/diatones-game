@@ -1,11 +1,12 @@
+# Responsible for emitting the beat_hit signal
 extends Node
 
 signal beat_hit(beats_passed: float)
 
 @onready var music_player: AudioStreamPlayer = %MusicPlayer
 
-const BPM := 150
-const seconds_per_beat := 60.0 / BPM
+@export var BPM := 80
+var seconds_per_beat := 60.0 / BPM
 
 var time_begin
 var time_delay
