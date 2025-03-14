@@ -19,7 +19,7 @@ func reset_timing() -> void:
 	beat_secs_elapsed = 0
 	
 func _ready() -> void:
-	update_frame_timing(160)
+	update_frame_timing(100)
 	reset_timing()
 
 func _process(delta: float) -> void:

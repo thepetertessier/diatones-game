@@ -7,3 +7,15 @@
 [node name="Lines" type="Node2D" parent="."]
 
 [node name="StaffLine" parent="Lines" instance=ExtResource("1_cghil")]
+
+[node name="StaffLine2" parent="Lines" instance=ExtResource("1_cghil")]
+position = Vector2(0, 75)
+
+[node name="StaffLine3" parent="Lines" instance=ExtResource("1_cghil")]
+position = Vector2(0, 150)
+
+[node name="StaffLine4" parent="Lines" instance=ExtResource("1_cghil")]
+position = Vector2(0, 225)
+
+[node name="StaffLine5" parent="Lines" instance=ExtResource("1_cghil")]
+position = Vector2(0, 300)

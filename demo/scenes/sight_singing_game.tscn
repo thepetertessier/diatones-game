@@ -6,7 +6,10 @@
 [node name="SightSingingGame" type="Node2D"]
 
 [node name="Staff" parent="." instance=ExtResource("1_7ovvg")]
-visible = false
+position = Vector2(0, 192)
 
 [node name="WholeNote" parent="." instance=ExtResource("2_m2vau")]
-position = Vector2(690, 424)
+position = Vector2(1048, 285)
+scale = Vector2(0.24929, 0.255165)
+frame = 3
+frame_progress = 0.0
