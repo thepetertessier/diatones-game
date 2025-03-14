@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b4pg1b7o8aq63"]
+
+[ext_resource type="Script" path="res://scripts/conductor.gd" id="1_yw8ie"]
+
+[node name="Conductor" type="Node"]
+script = ExtResource("1_yw8ie")

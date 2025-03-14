@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bw6bvmfop5wps"]
+[gd_scene load_steps=5 format=3 uid="uid://bw6bvmfop5wps"]
 
 [ext_resource type="PackedScene" uid="uid://cps1bh5tcsvsb" path="res://scenes/staff.tscn" id="1_7ovvg"]
 [ext_resource type="PackedScene" uid="uid://cnwdll8gkw8km" path="res://scenes/whole_note.tscn" id="2_m2vau"]
+[ext_resource type="AudioStream" uid="uid://fr0ed0ui8px7" path="res://assets/music/Fae Battle (Enemy Turn).wav" id="3_i7vgi"]
+[ext_resource type="PackedScene" uid="uid://b4pg1b7o8aq63" path="res://scenes/conductor.tscn" id="4_8mq7p"]
 
 [node name="SightSingingGame" type="Node2D"]
 
@@ -13,3 +15,13 @@ position = Vector2(1048, 285)
 scale = Vector2(0.24929, 0.255165)
 frame = 3
 frame_progress = 0.0
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_i7vgi")
+bus = &"Music"
+
+[node name="Conductor" parent="." instance=ExtResource("4_8mq7p")]
+unique_name_in_owner = true
+
+[connection signal="beat_hit" from="Conductor" to="WholeNote" method="_on_conductor_beat_hit"]
