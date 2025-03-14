@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bw6bvmfop5wps"]
+
+[ext_resource type="PackedScene" uid="uid://cps1bh5tcsvsb" path="res://scenes/staff.tscn" id="1_7ovvg"]
+
+[node name="SightSingingGame" type="Node2D"]
+
+[node name="Staff" parent="." instance=ExtResource("1_7ovvg")]

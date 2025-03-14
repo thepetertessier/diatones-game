@@ -1,6 +1,6 @@
 extends PitchDetector
 
-signal _pitch_updated(pitch: float)
+signal _pitch_updated(new_pitch: float)
 
 var pitch: float = 0
 
