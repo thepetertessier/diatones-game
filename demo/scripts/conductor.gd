@@ -33,4 +33,4 @@ func _process(_delta: float) -> void:
 		beat_hit.emit(beats_passed)
 		beats_passed += 1
 		next_timestamp = seconds_per_beat*beats_passed
-		print("[C] beat hit (%s)" % beats_passed)
+		print("[C] sent beat hit (%s)" % beats_passed)

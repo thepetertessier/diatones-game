@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://bk7t6g1q1vq23"]
+
+[ext_resource type="Texture2D" uid="uid://chcgei3vfats4" path="res://assets/animations/note_animations/half_note.png" id="1_evhec"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o2qrd"]
+atlas = ExtResource("1_evhec")
+region = Rect2(400, 0, 880, 720)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k6xof"]
+atlas = ExtResource("1_evhec")
+region = Rect2(1680, 0, 880, 720)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4saax"]
+atlas = ExtResource("1_evhec")
+region = Rect2(2960, 0, 880, 720)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qa0l7"]
+atlas = ExtResource("1_evhec")
+region = Rect2(4240, 0, 880, 720)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fblxk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o2qrd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k6xof")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4saax")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qa0l7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="HalfNote" type="AnimatedSprite2D"]
+position = Vector2(485, -156)
+scale = Vector2(2.66667, 2.66667)
+sprite_frames = SubResource("SpriteFrames_fblxk")
+frame = 3

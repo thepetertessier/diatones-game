@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://bw6bvmfop5wps"]
+[gd_scene load_steps=10 format=3 uid="uid://bw6bvmfop5wps"]
 
 [ext_resource type="PackedScene" uid="uid://cps1bh5tcsvsb" path="res://scenes/staff.tscn" id="1_7ovvg"]
 [ext_resource type="PackedScene" uid="uid://cnwdll8gkw8km" path="res://scenes/whole_note.tscn" id="2_m2vau"]
 [ext_resource type="AudioStream" uid="uid://c4ehkxcggktpr" path="res://assets/music/Locriana's Lament.mp3" id="3_c7b37"]
 [ext_resource type="PackedScene" uid="uid://b4pg1b7o8aq63" path="res://scenes/conductor.tscn" id="4_8mq7p"]
 [ext_resource type="VideoStream" path="res://assets/videos/clouds_scroll.ogv" id="5_72u8p"]
+[ext_resource type="PackedScene" uid="uid://bk7t6g1q1vq23" path="res://scenes/half_note.tscn" id="6_n4bd8"]
+[ext_resource type="Script" path="res://scripts/half_note.gd" id="7_o101a"]
+[ext_resource type="PackedScene" uid="uid://c15d44to45owe" path="res://scenes/quarter_note.tscn" id="8_m5f21"]
+[ext_resource type="Script" path="res://scripts/quarter_note.gd" id="9_ss5ih"]
 
 [node name="SightSingingGame" type="Node2D"]
 
@@ -13,9 +17,10 @@ offset_right = 1920.0
 offset_bottom = 1088.0
 stream = ExtResource("5_72u8p")
 autoplay = true
+expand = true
 loop = true
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="Shadow" type="ColorRect" parent="."]
 offset_left = -67.0
 offset_top = 388.0
 offset_right = 2040.0
@@ -26,12 +31,6 @@ color = Color(0, 0, 0, 0.654902)
 position = Vector2(42, 466)
 scale = Vector2(0.491228, 0.491228)
 
-[node name="WholeNote" parent="." instance=ExtResource("2_m2vau")]
-position = Vector2(982, 530)
-scale = Vector2(0.137703, 0.140948)
-frame = 3
-frame_progress = 0.0
-
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("3_c7b37")
@@ -40,4 +39,26 @@ bus = &"Music"
 [node name="Conductor" parent="." instance=ExtResource("4_8mq7p")]
 unique_name_in_owner = true
 
-[connection signal="beat_hit" from="Conductor" to="WholeNote" method="_on_conductor_beat_hit"]
+[node name="Notes" type="Node" parent="."]
+
+[node name="WholeNote" parent="Notes" instance=ExtResource("2_m2vau")]
+position = Vector2(982, 530)
+scale = Vector2(0.137703, 0.140948)
+frame = 3
+frame_progress = 0.0
+
+[node name="HalfNote" parent="Notes" instance=ExtResource("6_n4bd8")]
+position = Vector2(1135, 575)
+scale = Vector2(0.331213, 0.339018)
+script = ExtResource("7_o101a")
+
+[node name="QuarterNote" parent="Notes" instance=ExtResource("8_m5f21")]
+position = Vector2(1249, 481)
+scale = Vector2(0.320222, 0.35191)
+frame = 3
+frame_progress = 0.0
+script = ExtResource("9_ss5ih")
+
+[connection signal="beat_hit" from="Conductor" to="Notes/WholeNote" method="_on_conductor_beat_hit"]
+[connection signal="beat_hit" from="Conductor" to="Notes/HalfNote" method="_on_conductor_beat_hit"]
+[connection signal="beat_hit" from="Conductor" to="Notes/QuarterNote" method="_on_conductor_beat_hit"]
