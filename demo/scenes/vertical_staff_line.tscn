@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://cfmblp3stc11e"]
+
+[node name="VerticalStaffLine" type="Line2D"]
+points = PackedVector2Array(0, 0, 0, 300)

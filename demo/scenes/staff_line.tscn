@@ -1,4 +1,4 @@
 [gd_scene format=3 uid="uid://db2ttjw2sh3sv"]
 
 [node name="StaffLine" type="Line2D"]
-points = PackedVector2Array(0, 0, 2000, 0)
+points = PackedVector2Array(0, 0, 4000, 0)
