@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmgwbjjtuhis7"]
+
+[ext_resource type="PackedScene" uid="uid://c0tnbuh63diub" path="res://scenes/pitch_dot.tscn" id="1_4v2xw"]
+[ext_resource type="PackedScene" uid="uid://px54gbcrgf4w" path="res://scenes/pitch_detector.tscn" id="2_vi15j"]
+
+[node name="MovingPitchDot" type="Node2D"]
+
+[node name="PitchDot" parent="." instance=ExtResource("1_4v2xw")]
+position = Vector2(0, 250)
+
+[node name="Line2D" type="Line2D" parent="."]
+visible = false
+points = PackedVector2Array(0, 0, 0, 500)
+
+[node name="PitchDetector" parent="." instance=ExtResource("2_vi15j")]

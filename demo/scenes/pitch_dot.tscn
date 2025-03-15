@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=3 uid="uid://c0tnbuh63diub"]
+
+[sub_resource type="Gradient" id="Gradient_lw1pm"]
+offsets = PackedFloat32Array(0, 0.175325, 0.363636, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 0.552941, 0.552941, 0.552941, 0, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_03h5h"]
+gradient = SubResource("Gradient_lw1pm")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Curve" id="Curve_lsu4j"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.280523), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_u5fsv"]
+offsets = PackedFloat32Array(0, 0.453333, 1)
+colors = PackedColorArray(1, 1, 1, 0.882353, 1, 1, 0, 0.568627, 1, 1, 1, 0.537255)
+
+[sub_resource type="Gradient" id="Gradient_hyqj1"]
+offsets = PackedFloat32Array(0, 0.453333, 1)
+colors = PackedColorArray(0.905882, 0.843137, 0.243137, 0.882353, 0.407843, 0.772549, 0.470588, 0.568627, 1, 1, 1, 0.537255)
+
+[node name="PitchDot" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_03h5h")
+
+[node name="InnerParts" type="CPUParticles2D" parent="."]
+amount = 1000
+lifetime = 1.5
+emission_shape = 1
+emission_sphere_radius = 4.23
+gravity = Vector2(-400, 0)
+radial_accel_min = -50.0
+radial_accel_max = -40.0
+scale_amount_min = 3.0
+scale_amount_max = 4.0
+scale_amount_curve = SubResource("Curve_lsu4j")
+color_ramp = SubResource("Gradient_u5fsv")
+
+[node name="OuterParts" type="CPUParticles2D" parent="."]
+amount = 500
+lifetime = 1.5
+emission_shape = 1
+emission_sphere_radius = 34.61
+gravity = Vector2(-400, 0)
+radial_accel_min = -50.0
+radial_accel_max = -40.0
+scale_amount_min = 3.0
+scale_amount_max = 6.0
+scale_amount_curve = SubResource("Curve_lsu4j")
+color_ramp = SubResource("Gradient_hyqj1")

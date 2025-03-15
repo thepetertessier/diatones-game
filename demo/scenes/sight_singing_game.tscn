@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bw6bvmfop5wps"]
+[gd_scene load_steps=11 format=3 uid="uid://bw6bvmfop5wps"]
 
 [ext_resource type="PackedScene" uid="uid://cps1bh5tcsvsb" path="res://scenes/staff.tscn" id="1_7ovvg"]
 [ext_resource type="PackedScene" uid="uid://cnwdll8gkw8km" path="res://scenes/whole_note.tscn" id="2_m2vau"]
@@ -9,10 +9,14 @@
 [ext_resource type="Script" path="res://scripts/half_note.gd" id="7_o101a"]
 [ext_resource type="PackedScene" uid="uid://c15d44to45owe" path="res://scenes/quarter_note.tscn" id="8_m5f21"]
 [ext_resource type="Script" path="res://scripts/quarter_note.gd" id="9_ss5ih"]
+[ext_resource type="PackedScene" uid="uid://dmgwbjjtuhis7" path="res://scenes/moving_pitch_dot.tscn" id="10_4t45y"]
 
-[node name="SightSingingGame" type="Node2D"]
+[node name="SightSingingGame" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 
 [node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1088.0
 stream = ExtResource("5_72u8p")
@@ -21,6 +25,7 @@ expand = true
 loop = true
 
 [node name="Shadow" type="ColorRect" parent="."]
+layout_mode = 0
 offset_left = -67.0
 offset_top = 388.0
 offset_right = 2040.0
@@ -55,9 +60,10 @@ script = ExtResource("7_o101a")
 [node name="QuarterNote" parent="Notes" instance=ExtResource("8_m5f21")]
 position = Vector2(1249, 481)
 scale = Vector2(0.320222, 0.35191)
-frame = 3
-frame_progress = 0.0
 script = ExtResource("9_ss5ih")
+
+[node name="MovingPitchDot" parent="." instance=ExtResource("10_4t45y")]
+position = Vector2(485, 287)
 
 [connection signal="beat_hit" from="Conductor" to="Notes/WholeNote" method="_on_conductor_beat_hit"]
 [connection signal="beat_hit" from="Conductor" to="Notes/HalfNote" method="_on_conductor_beat_hit"]
