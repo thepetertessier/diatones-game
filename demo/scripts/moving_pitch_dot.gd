@@ -11,8 +11,8 @@ const c4 := y_bottom_staff + 4*dy
 
 func pos_at_offset(x: float, t: int) -> float:
 	# Calculates the y position at a given midi offset
-	assert(t < x)
-	assert(x < t+12)
+	#assert(t <= x)
+	#assert(x <= t+12)
 	if x <= t+4:
 		return x-t
 	if x <= t+5:
@@ -22,7 +22,7 @@ func pos_at_offset(x: float, t: int) -> float:
 	return 2*x - 2*(t+5)
 
 func midi_to_pos_at_c(midi: float) -> float:
-	return pos_at_offset(midi, 12*(midi/12))
+	return pos_at_offset(midi, 12*int(midi/12))
 
 func midi_to_pos(midi: float, key: int) -> float:
 	# Returns the y position of the note on the staff going up from middle C

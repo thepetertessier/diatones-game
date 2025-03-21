@@ -8,11 +8,11 @@
 script = ExtResource("1_8q388")
 
 [node name="PitchDot" parent="." instance=ExtResource("1_4v2xw")]
-position = Vector2(0, 250)
+position = Vector2(0, 150)
 
 [node name="Line2D" type="Line2D" parent="."]
 visible = false
-points = PackedVector2Array(0, 0, 0, 500)
+points = PackedVector2Array(0, 0, 0, 300)
 
 [node name="PitchDetector" parent="." instance=ExtResource("2_vi15j")]
 

@@ -154,6 +154,9 @@ float detectPitch(const std::vector<float>& signal, const int sampleRate, double
 }
 
 double hzToMidi(double pitchHz) {
+    if (pitchHz <= 0) {
+        pitchHz = 1;
+    }
     return 69.0 + 12.0 * std::log2(pitchHz / 440.0);
 }
 

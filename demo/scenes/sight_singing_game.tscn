@@ -1,6 +1,5 @@
-[gd_scene load_steps=11 format=3 uid="uid://bw6bvmfop5wps"]
+[gd_scene load_steps=10 format=3 uid="uid://bw6bvmfop5wps"]
 
-[ext_resource type="PackedScene" uid="uid://cps1bh5tcsvsb" path="res://scenes/staff.tscn" id="1_7ovvg"]
 [ext_resource type="PackedScene" uid="uid://cnwdll8gkw8km" path="res://scenes/whole_note.tscn" id="2_m2vau"]
 [ext_resource type="AudioStream" uid="uid://c4ehkxcggktpr" path="res://assets/music/Locriana's Lament.mp3" id="3_c7b37"]
 [ext_resource type="PackedScene" uid="uid://b4pg1b7o8aq63" path="res://scenes/conductor.tscn" id="4_8mq7p"]
@@ -9,7 +8,7 @@
 [ext_resource type="Script" path="res://scripts/half_note.gd" id="7_o101a"]
 [ext_resource type="PackedScene" uid="uid://c15d44to45owe" path="res://scenes/quarter_note.tscn" id="8_m5f21"]
 [ext_resource type="Script" path="res://scripts/quarter_note.gd" id="9_ss5ih"]
-[ext_resource type="PackedScene" uid="uid://dmgwbjjtuhis7" path="res://scenes/moving_pitch_dot.tscn" id="10_4t45y"]
+[ext_resource type="PackedScene" uid="uid://cuvdi3qyruxps" path="res://scenes/moving_pitch_dot_on_staff.tscn" id="9_ypylt"]
 
 [node name="SightSingingGame" type="Control"]
 layout_mode = 3
@@ -31,10 +30,6 @@ offset_top = 388.0
 offset_right = 2040.0
 offset_bottom = 695.0
 color = Color(0, 0, 0, 0.654902)
-
-[node name="Staff" parent="." instance=ExtResource("1_7ovvg")]
-position = Vector2(42, 466)
-scale = Vector2(0.491228, 0.491228)
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
@@ -62,8 +57,9 @@ position = Vector2(1249, 481)
 scale = Vector2(0.320222, 0.35191)
 script = ExtResource("9_ss5ih")
 
-[node name="MovingPitchDot" parent="." instance=ExtResource("10_4t45y")]
-position = Vector2(485, 287)
+[node name="MovingPitchDotOnStaff" parent="." instance=ExtResource("9_ypylt")]
+position = Vector2(0, 464)
+scale = Vector2(0.5, 0.5)
 
 [connection signal="beat_hit" from="Conductor" to="Notes/WholeNote" method="_on_conductor_beat_hit"]
 [connection signal="beat_hit" from="Conductor" to="Notes/HalfNote" method="_on_conductor_beat_hit"]
