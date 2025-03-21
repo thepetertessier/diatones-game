@@ -5,7 +5,7 @@ extends Node2D
 
 const y_top_staff := 0
 const y_bottom_staff := 300
-const dy := 15 # Divides staff vertically into 20 even parts
+const dy := 300.0/16.0 # Divides staff vertically into 16 even parts
 const c4 := y_bottom_staff + 4*dy
 
 @onready var pitch_dot: Node2D = $PitchDot
