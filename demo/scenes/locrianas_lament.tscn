@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://hxxphhn8d5ph"]
+
+[ext_resource type="Script" path="res://scripts/locrianas_lament.gd" id="1_upkuv"]
+
+[node name="LocrianasLament" type="Node"]
+script = ExtResource("1_upkuv")

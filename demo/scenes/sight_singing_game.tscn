@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://scripts/half_note.gd" id="7_o101a"]
 [ext_resource type="PackedScene" uid="uid://c15d44to45owe" path="res://scenes/quarter_note.tscn" id="8_m5f21"]
 [ext_resource type="Script" path="res://scripts/quarter_note.gd" id="9_ss5ih"]
-[ext_resource type="PackedScene" uid="uid://cuvdi3qyruxps" path="res://scenes/moving_pitch_dot_on_staff.tscn" id="9_ypylt"]
+[ext_resource type="PackedScene" uid="uid://cuvdi3qyruxps" path="res://scenes/staff_game.tscn" id="9_ypylt"]
 
 [node name="SightSingingGame" type="Control"]
 layout_mode = 3
@@ -31,36 +31,36 @@ offset_right = 2040.0
 offset_bottom = 695.0
 color = Color(0, 0, 0, 0.654902)
 
-[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
-unique_name_in_owner = true
-stream = ExtResource("3_c7b37")
-bus = &"Music"
-
 [node name="Conductor" parent="." instance=ExtResource("4_8mq7p")]
 unique_name_in_owner = true
 
-[node name="Notes" type="Node" parent="."]
-
-[node name="WholeNote" parent="Notes" instance=ExtResource("2_m2vau")]
-position = Vector2(982, 530)
-scale = Vector2(0.137703, 0.140948)
-frame = 3
-frame_progress = 0.0
-
-[node name="HalfNote" parent="Notes" instance=ExtResource("6_n4bd8")]
-position = Vector2(1135, 575)
-scale = Vector2(0.331213, 0.339018)
-script = ExtResource("7_o101a")
-
-[node name="QuarterNote" parent="Notes" instance=ExtResource("8_m5f21")]
-position = Vector2(1249, 481)
-scale = Vector2(0.320222, 0.35191)
-script = ExtResource("9_ss5ih")
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="Conductor"]
+unique_name_in_owner = true
+stream = ExtResource("3_c7b37")
+bus = &"Music"
 
 [node name="MovingPitchDotOnStaff" parent="." instance=ExtResource("9_ypylt")]
 position = Vector2(0, 464)
 scale = Vector2(0.5, 0.5)
 
-[connection signal="beat_hit" from="Conductor" to="Notes/WholeNote" method="_on_conductor_beat_hit"]
-[connection signal="beat_hit" from="Conductor" to="Notes/HalfNote" method="_on_conductor_beat_hit"]
-[connection signal="beat_hit" from="Conductor" to="Notes/QuarterNote" method="_on_conductor_beat_hit"]
+[node name="Notes" type="Node" parent="MovingPitchDotOnStaff"]
+
+[node name="WholeNote" parent="MovingPitchDotOnStaff/Notes" instance=ExtResource("2_m2vau")]
+position = Vector2(982, 530)
+scale = Vector2(0.137703, 0.140948)
+frame = 3
+frame_progress = 0.0
+
+[node name="HalfNote" parent="MovingPitchDotOnStaff/Notes" instance=ExtResource("6_n4bd8")]
+position = Vector2(1135, 575)
+scale = Vector2(0.331213, 0.339018)
+script = ExtResource("7_o101a")
+
+[node name="QuarterNote" parent="MovingPitchDotOnStaff/Notes" instance=ExtResource("8_m5f21")]
+position = Vector2(1249, 481)
+scale = Vector2(0.320222, 0.35191)
+script = ExtResource("9_ss5ih")
+
+[connection signal="beat_hit" from="Conductor" to="MovingPitchDotOnStaff/Notes/WholeNote" method="_on_conductor_beat_hit"]
+[connection signal="beat_hit" from="Conductor" to="MovingPitchDotOnStaff/Notes/HalfNote" method="_on_conductor_beat_hit"]
+[connection signal="beat_hit" from="Conductor" to="MovingPitchDotOnStaff/Notes/QuarterNote" method="_on_conductor_beat_hit"]

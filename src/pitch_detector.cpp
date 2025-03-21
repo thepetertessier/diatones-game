@@ -9,7 +9,8 @@ using namespace godot;
 
 void PitchDetector::_bind_methods() {
     ClassDB::bind_method(D_METHOD("detect_pitch", "audio_buffer", "sample_rate", "f_min", "f_max"), &PitchDetector::detect_pitch);
-    ClassDB::bind_method(D_METHOD("detect_midi", "audio_buffer", "sample_rate", "f_min", "f_max"), &PitchDetector::detect_pitch);
+    ClassDB::bind_method(D_METHOD("detect_midi", "audio_buffer", "sample_rate", "f_min", "f_max"), &PitchDetector::detect_midi);
+    ClassDB::bind_method(D_METHOD("detect_pitch_and_midi", "audio_buffer", "sample_rate", "f_min", "f_max"), &PitchDetector::detect_pitch_and_midi);
 }
 
 //--------------------------------------------------------
@@ -190,6 +191,12 @@ float PitchDetector::detect_pitch(const PackedVector2Array &audio_buffer, const 
 
 float PitchDetector::detect_midi(const PackedVector2Array &audio_buffer, const int sample_rate, double f_min, double f_max) {
     return hzToMidi(detect_pitch_godot(audio_buffer, sample_rate, f_min, f_max));
+}
+
+Vector2 PitchDetector::detect_pitch_and_midi(const PackedVector2Array &audio_buffer, const int sample_rate, double f_min, double f_max) {
+    float pitch = detect_pitch_godot(audio_buffer, sample_rate, f_min, f_max);
+    float midi = hzToMidi(pitch);
+    return Vector2(pitch, midi);
 }
 
 //--------------------------------------------------------

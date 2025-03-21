@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var key := 0
+@export var midi_note := 60
 
 const y_top_staff := 0
 const y_bottom_staff := 300
@@ -9,8 +10,7 @@ const c4 := y_bottom_staff + 4*dy
 
 @onready var pitch_dot: Node2D = $PitchDot
 
-func pos_at_offset(x: float, t: int) -> float:
-	# Calculates the y position at a given midi offset
+func pre_pos_at_offset(x: float, t: int) -> float:
 	#assert(t <= x)
 	#assert(x <= t+12)
 	if x <= t+4:
@@ -20,6 +20,10 @@ func pos_at_offset(x: float, t: int) -> float:
 	if x <= t+11:
 		return x-t+1
 	return 2*x - 2*(t+5)
+	
+func pos_at_offset(x: float, t: int) -> float:
+	# Calculates the y position at a given midi offset
+	return pre_pos_at_offset(x, t) + 7*(t/6-10)
 
 func midi_to_pos_at_c(midi: float) -> float:
 	return pos_at_offset(midi, 12*int(midi/12))
@@ -46,8 +50,23 @@ func midi_to_pos(midi: float, key: int) -> float:
 	#	(67, 1) => 8.0
 	# As you can see, the result increases at the same rate as midi, except when we're in between two half notes, when it increases twice as fast
 	# Visualization: https://www.desmos.com/calculator/vzrew85qnq
-	return midi_to_pos_at_c(midi - 7*key) + 8*key
+	var result = midi_to_pos_at_c(midi - 7*key) + 8*key
+	return result
 
+func get_abs_y_pos(midi: float):
+	var rel_y = midi_to_pos(midi, key)
+	print("midi = ", midi, "  rel_y = ", rel_y)
+	return c4 - dy*rel_y
 
+func set_pitch_dot_y(midi: float):
+	var new_y = get_abs_y_pos(midi)
+	pitch_dot.position.y = new_y
+	#print("abs_y = ", new_y)
+	
 func _on_pitch_detector__midi_updated(new_midi: float) -> void:
-	pitch_dot.position.y = c4 - dy*midi_to_pos(new_midi, key)
+	set_pitch_dot_y(new_midi)
+
+#func _ready() -> void:
+	#set_pitch_dot_y(midi_note)
+	#for i in range(60-12, 60+12):
+		#print("Result of ", i, ": ", midi_to_pos(i, key))
