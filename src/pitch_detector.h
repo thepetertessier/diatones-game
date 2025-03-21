@@ -23,6 +23,7 @@ public:
     ~PitchDetector() {};
 
     float detect_pitch(const PackedVector2Array &audio_buffer, const int sample_rate = 44100, double f_min = 50, double f_max = 1000);
+    float detect_midi(const PackedVector2Array &audio_buffer, const int sample_rate = 44100, double f_min = 50, double f_max = 1000);
 };
 
 #endif // PITCH_DETECTOR_H

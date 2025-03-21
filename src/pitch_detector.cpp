@@ -9,6 +9,7 @@ using namespace godot;
 
 void PitchDetector::_bind_methods() {
     ClassDB::bind_method(D_METHOD("detect_pitch", "audio_buffer", "sample_rate", "f_min", "f_max"), &PitchDetector::detect_pitch);
+    ClassDB::bind_method(D_METHOD("detect_midi", "audio_buffer", "sample_rate", "f_min", "f_max"), &PitchDetector::detect_pitch);
 }
 
 //--------------------------------------------------------
@@ -152,10 +153,15 @@ float detectPitch(const std::vector<float>& signal, const int sampleRate, double
     return pitch;
 }
 
+double hzToMidi(double pitchHz) {
+    return 69.0 + 12.0 * std::log2(pitchHz / 440.0);
+}
+
+
 //--------------------------------------------------------
 // Wrapper function: convert stereo PackedVector2Array to mono and detect pitch
 //--------------------------------------------------------
-float PitchDetector::detect_pitch(const PackedVector2Array &audio_buffer, const int sample_rate, double f_min, double f_max) {
+float detect_pitch_godot(const PackedVector2Array &audio_buffer, const int sample_rate, double f_min, double f_max) {
     // Convert the stereo audio to mono by averaging the two channels.
     std::vector<float> monoSignal;
     monoSignal.reserve(audio_buffer.size());
@@ -173,6 +179,14 @@ float PitchDetector::detect_pitch(const PackedVector2Array &audio_buffer, const 
         return 0.0f;
     
     return pitch;
+}
+
+float PitchDetector::detect_pitch(const PackedVector2Array &audio_buffer, const int sample_rate, double f_min, double f_max) {
+    return detect_pitch_godot(audio_buffer, sample_rate, f_min, f_max);
+}
+
+float PitchDetector::detect_midi(const PackedVector2Array &audio_buffer, const int sample_rate, double f_min, double f_max) {
+    return hzToMidi(detect_pitch_godot(audio_buffer, sample_rate, f_min, f_max));
 }
 
 //--------------------------------------------------------
