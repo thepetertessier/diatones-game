@@ -3,12 +3,19 @@ extends Node2D
 @export var key := 0
 @export var midi_note := 60
 
-const y_top_staff := 0
-const y_bottom_staff := 300
-const dy := 300.0/16.0 # Divides staff vertically into 16 even parts
-const c4 := y_bottom_staff + 4*dy
+var y_top_staff: float
+var y_bottom_staff: float
+var dy: float  # Divides staff vertically into 16 even parts
+var c4: float  # Y position of the note C4
 
+@onready var staff: Node2D = %Staff
 @onready var pitch_dot: Node2D = $PitchDot
+
+func _ready() -> void:
+	y_top_staff = staff.get_top_staff_y()
+	y_bottom_staff = staff.get_bottom_staff_y()
+	dy = (y_bottom_staff - y_top_staff) / 16.0
+	c4 = y_bottom_staff + 4*dy
 
 func pre_pos_at_offset(x: float, t: int) -> float:
 	#assert(t <= x)
