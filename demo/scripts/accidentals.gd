@@ -6,7 +6,6 @@ const SHARP = preload("res://assets/images/sharp.svg")
 const x_start := 300
 
 @onready var staff: Node2D = %Staff
-@onready var staff_game: Node2D = $".."
 
 @onready var y_top_staff: float = staff.get_top_staff_y()
 @onready var y_bottom_staff: float  = staff.get_bottom_staff_y()
@@ -18,8 +17,6 @@ const x_start := 300
 		return key
 	set(value):
 		key = value
-		if staff_game:
-			staff_game.set_key(value)
 		update_display()  # A custom function that updates the display based on the key
 
 func _ready() -> void:

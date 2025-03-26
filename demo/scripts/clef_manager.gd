@@ -3,8 +3,6 @@ extends Node2D
 
 enum {TREBLE, TENOR, BASS}
 
-@onready var staff_game: Node2D = $".."
-
 var note_offset := 0
 
 @export_enum("Treble", "Tenor", "Bass") var clef: int = 0 :
@@ -13,8 +11,6 @@ var note_offset := 0
 	set(value):
 		clef = value
 		update_display()
-		if staff_game:
-			staff_game.set_c4(note_offset)
 
 func _ready() -> void:
 	update_display()

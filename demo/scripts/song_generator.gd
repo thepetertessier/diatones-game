@@ -1,21 +1,12 @@
 extends Node
 
-@export var path_to_musicxml: String = "res://assets/musicxml/Locriana's Lament.xml"
-
 @onready var note_spawner: Node2D = %NoteSpawner
 @onready var key_manager: Node2D = %KeyManager
 @onready var time_signature_manager: Node2D = %TimeSignatureManager
 @onready var clef_manager: Node2D = %ClefManager
+@onready var conductor: Node = %Conductor
 
 enum {TREBLE, TENOR, BASS}
-
-func _ready():
-	var song_info = parse_musicxml()
-	key_manager.key = song_info["key"]
-	time_signature_manager.beats = song_info["time_signature"]["beats"]
-	time_signature_manager.beat_type = song_info["time_signature"]["beat_type"]
-	clef_manager.clef = song_info["clef"]
-	#note_spawner.start_spawning(song_info)
 
 # Helper function to read text content from the current element.
 func read_text(parser: XMLParser) -> String:
@@ -40,7 +31,7 @@ func sign_and_line_to_clef(sign: String, line: int, clef_octave_change: int):
 	# Should not get here
 	assert(false)
 
-func parse_musicxml(path_to_musicxml: String = path_to_musicxml) -> Dictionary:
+func parse_musicxml(path_to_musicxml: String) -> Dictionary:
 	var parser = XMLParser.new()
 	parser.open(path_to_musicxml)
 
@@ -156,4 +147,11 @@ func parse_musicxml(path_to_musicxml: String = path_to_musicxml) -> Dictionary:
 						break
 				representation["notes"].append(note_info)
 	
+	print(representation)
+	validate_representation(representation)
 	return representation
+
+func validate_representation(representation):
+	if not representation["bpm"]:
+		printerr("BPM is not set in MusicXML")
+		assert(false)

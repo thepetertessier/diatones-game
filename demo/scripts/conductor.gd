@@ -17,6 +17,8 @@ var next_timestamp := 0.0
 func _ready():
 	time_begin = Time.get_ticks_usec()
 	time_delay = AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency()
+	
+func start():
 	music_player.play()
 
 func get_time():
@@ -31,5 +33,6 @@ func get_time():
 func _process(_delta: float) -> void:
 	if get_time() >= next_timestamp:
 		beat_hit.emit(beats_passed)
+		#print("Beat: ", beats_passed)
 		beats_passed += 1
 		next_timestamp = seconds_per_beat*beats_passed
