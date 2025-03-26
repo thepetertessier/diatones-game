@@ -1,11 +1,9 @@
 extends PitchDetector
 # Responsible for emitting the midi detected from microphone
 
-#signal _pitch_updated(new_pitch: float)
-signal _midi_updated(new_midi: float)
+signal midi_updated(new_midi: float)
 
 var capture: AudioEffectCapture
-var spectrum_analyzer: AudioEffectSpectrumAnalyzerInstance
 
 const buffer_size: int = 2048  # Must match C++ script
 const sample_rate: int = 44100
@@ -28,4 +26,4 @@ func _on_timer_timeout() -> void:
 		var audio_buffer = capture.get_buffer(buffer_size)
 		var midi: float = get_midi(audio_buffer)
 		midi += 1.3 # Manual adjustment
-		emit_signal("_midi_updated", midi)
+		emit_signal("midi_updated", midi)

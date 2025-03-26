@@ -25,6 +25,7 @@ position = Vector2(0, 225)
 position = Vector2(0, 300)
 
 [node name="TrebleClef" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(138, 166)
 scale = Vector2(0.831309, 0.831309)
 texture = ExtResource("2_kvukw")
@@ -32,7 +33,9 @@ texture = ExtResource("2_kvukw")
 [node name="VerticalStaffLine" parent="." instance=ExtResource("3_6ciuh")]
 
 [node name="VerticalStaffLine2" parent="." instance=ExtResource("3_6ciuh")]
+visible = false
 position = Vector2(335, 0)
 
 [node name="VerticalStaffLine3" parent="." instance=ExtResource("3_6ciuh")]
+visible = false
 position = Vector2(362, 1)

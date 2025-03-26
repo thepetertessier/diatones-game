@@ -1,21 +1,16 @@
 extends Node2D
 
-@export var key := 0
-@export var midi_note := 60
-
-var y_top_staff: float
-var y_bottom_staff: float
-var dy: float  # Divides staff vertically into 16 even parts
-var c4: float  # Y position of the note C4
-
-@onready var staff: Node2D = %Staff
+@onready var staff: Node2D = $Staff
 @onready var pitch_dot: Node2D = $PitchDot
+@onready var key_manager: Node2D = $KeyManager
+@onready var clef_manager: Node2D = $ClefManager
 
-func _ready() -> void:
-	y_top_staff = staff.get_top_staff_y()
-	y_bottom_staff = staff.get_bottom_staff_y()
-	dy = (y_bottom_staff - y_top_staff) / 16.0
-	c4 = y_bottom_staff + 4*dy
+@onready var key: int = key_manager.key
+
+@onready var y_top_staff: float = staff.get_top_staff_y()
+@onready var y_bottom_staff: float  = staff.get_bottom_staff_y()
+@onready var dy: float = (y_bottom_staff - y_top_staff) / 16.0  # Divides staff vertically into 16 even parts
+@onready var c4: float = y_bottom_staff + 4*dy - clef_manager.note_offset*2*dy  # Y position of the note C4
 
 func pre_pos_at_offset(x: float, t: int) -> float:
 	#assert(t <= x)
@@ -69,11 +64,6 @@ func set_pitch_dot_y(midi: float):
 	var new_y = get_abs_y_pos(midi)
 	pitch_dot.position.y = new_y
 	#print("abs_y = ", new_y)
-	
-func _on_pitch_detector__midi_updated(new_midi: float) -> void:
-	set_pitch_dot_y(new_midi)
 
-#func _ready() -> void:
-	#set_pitch_dot_y(midi_note)
-	#for i in range(60-12, 60+12):
-		#print("Result of ", i, ": ", midi_to_pos(i, key))
+func _on_pitch_detector_midi_updated(new_midi: float) -> void:
+	set_pitch_dot_y(new_midi)

@@ -39,28 +39,28 @@ unique_name_in_owner = true
 stream = ExtResource("3_c7b37")
 bus = &"Music"
 
-[node name="MovingPitchDotOnStaff" parent="." instance=ExtResource("9_ypylt")]
+[node name="StaffGame" parent="." instance=ExtResource("9_ypylt")]
 position = Vector2(0, 464)
 scale = Vector2(0.5, 0.5)
 
-[node name="Notes" type="Node" parent="MovingPitchDotOnStaff"]
+[node name="Notes" type="Node" parent="StaffGame"]
 
-[node name="WholeNote" parent="MovingPitchDotOnStaff/Notes" instance=ExtResource("2_m2vau")]
+[node name="WholeNote" parent="StaffGame/Notes" instance=ExtResource("2_m2vau")]
 position = Vector2(982, 530)
 scale = Vector2(0.137703, 0.140948)
 frame = 3
 frame_progress = 0.0
 
-[node name="HalfNote" parent="MovingPitchDotOnStaff/Notes" instance=ExtResource("6_n4bd8")]
+[node name="HalfNote" parent="StaffGame/Notes" instance=ExtResource("6_n4bd8")]
 position = Vector2(1135, 575)
 scale = Vector2(0.331213, 0.339018)
 script = ExtResource("7_o101a")
 
-[node name="QuarterNote" parent="MovingPitchDotOnStaff/Notes" instance=ExtResource("8_m5f21")]
+[node name="QuarterNote" parent="StaffGame/Notes" instance=ExtResource("8_m5f21")]
 position = Vector2(1249, 481)
 scale = Vector2(0.320222, 0.35191)
 script = ExtResource("9_ss5ih")
 
-[connection signal="beat_hit" from="Conductor" to="MovingPitchDotOnStaff/Notes/WholeNote" method="_on_conductor_beat_hit"]
-[connection signal="beat_hit" from="Conductor" to="MovingPitchDotOnStaff/Notes/HalfNote" method="_on_conductor_beat_hit"]
-[connection signal="beat_hit" from="Conductor" to="MovingPitchDotOnStaff/Notes/QuarterNote" method="_on_conductor_beat_hit"]
+[connection signal="beat_hit" from="Conductor" to="StaffGame/Notes/WholeNote" method="_on_conductor_beat_hit"]
+[connection signal="beat_hit" from="Conductor" to="StaffGame/Notes/HalfNote" method="_on_conductor_beat_hit"]
+[connection signal="beat_hit" from="Conductor" to="StaffGame/Notes/QuarterNote" method="_on_conductor_beat_hit"]

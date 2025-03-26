@@ -8,4 +8,3 @@ func get_top_staff_y() -> float:
 
 func get_bottom_staff_y() -> float:
 	return staff_line_5.position.y
-	
