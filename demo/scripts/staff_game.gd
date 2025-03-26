@@ -1,7 +1,7 @@
 extends Node2D
 
 @onready var staff: Node2D = $Staff
-@onready var pitch_dot: Node2D = $PitchDot
+@onready var pitch_dot: Node2D = $PitchHitX/PitchDot
 @onready var key_manager: Node2D = $KeyManager
 @onready var clef_manager: Node2D = $ClefManager
 
@@ -10,7 +10,16 @@ extends Node2D
 @onready var y_top_staff: float = staff.get_top_staff_y()
 @onready var y_bottom_staff: float  = staff.get_bottom_staff_y()
 @onready var dy: float = (y_bottom_staff - y_top_staff) / 16.0  # Divides staff vertically into 16 even parts
-@onready var c4: float = y_bottom_staff + 4*dy - clef_manager.note_offset*2*dy  # Y position of the note C4
+var c4: float  # Y position of the note C4
+
+func _ready() -> void:
+	set_c4(clef_manager.note_offset)
+
+func set_key(new_key):
+	key = new_key
+	
+func set_c4(new_note_offset):
+	c4 = y_bottom_staff + 4*dy - new_note_offset*2*dy
 
 func pre_pos_at_offset(x: float, t: int) -> float:
 	#assert(t <= x)

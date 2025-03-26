@@ -164,6 +164,9 @@ position = Vector2(0, 150)
 unique_name_in_owner = true
 script = ExtResource("12_o8mnf")
 note_scene = ExtResource("13_rh8um")
+beat_interval = null
+spawn_position = null
+target_x = null
 
 [node name="Conductor" parent="PitchHitX/NoteSpawner" instance=ExtResource("15_kw7yq")]
 unique_name_in_owner = true

@@ -1,8 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://bw6bvmfop5wps"]
+[gd_scene load_steps=8 format=3 uid="uid://bw6bvmfop5wps"]
 
 [ext_resource type="PackedScene" uid="uid://cnwdll8gkw8km" path="res://scenes/whole_note.tscn" id="2_m2vau"]
-[ext_resource type="AudioStream" uid="uid://c4ehkxcggktpr" path="res://assets/music/Locriana's Lament.mp3" id="3_c7b37"]
-[ext_resource type="PackedScene" uid="uid://b4pg1b7o8aq63" path="res://scenes/conductor.tscn" id="4_8mq7p"]
 [ext_resource type="VideoStream" path="res://assets/videos/clouds_scroll.ogv" id="5_72u8p"]
 [ext_resource type="PackedScene" uid="uid://bk7t6g1q1vq23" path="res://scenes/half_note.tscn" id="6_n4bd8"]
 [ext_resource type="Script" path="res://scripts/half_note.gd" id="7_o101a"]
@@ -31,14 +29,6 @@ offset_right = 2040.0
 offset_bottom = 695.0
 color = Color(0, 0, 0, 0.654902)
 
-[node name="Conductor" parent="." instance=ExtResource("4_8mq7p")]
-unique_name_in_owner = true
-
-[node name="MusicPlayer" type="AudioStreamPlayer" parent="Conductor"]
-unique_name_in_owner = true
-stream = ExtResource("3_c7b37")
-bus = &"Music"
-
 [node name="StaffGame" parent="." instance=ExtResource("9_ypylt")]
 position = Vector2(0, 464)
 scale = Vector2(0.5, 0.5)
@@ -60,7 +50,3 @@ script = ExtResource("7_o101a")
 position = Vector2(1249, 481)
 scale = Vector2(0.320222, 0.35191)
 script = ExtResource("9_ss5ih")
-
-[connection signal="beat_hit" from="Conductor" to="StaffGame/Notes/WholeNote" method="_on_conductor_beat_hit"]
-[connection signal="beat_hit" from="Conductor" to="StaffGame/Notes/HalfNote" method="_on_conductor_beat_hit"]
-[connection signal="beat_hit" from="Conductor" to="StaffGame/Notes/QuarterNote" method="_on_conductor_beat_hit"]
