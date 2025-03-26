@@ -6,8 +6,6 @@ extends Node2D
 
 @onready var timer: Timer = $Timer
 
-signal finished_setting_up
-
 var tick_duration: float
 var divisions: int
 var notes_per_tick := {}
@@ -18,6 +16,8 @@ var next_tick := 0
 var ticks_and_notes: Array = []
 var seconds_per_beat: float
 var travel_time: float
+var ticks_on_screen: int
+var finished := false
 
 func set_data(song_info) -> void:
 	var BPM = song_info["bpm"]
@@ -29,8 +29,13 @@ func set_data(song_info) -> void:
 	next_tick = ticks_and_notes[0][0]
 	next_note = ticks_and_notes[0][1]
 	const beats_on_screen := 12
+	ticks_on_screen = beats_on_screen*divisions
 	travel_time = beats_on_screen * seconds_per_beat
-	finished_setting_up.emit()
+	spawn_preliminary_notes()
+
+func spawn_preliminary_notes():
+	while spawn_next_note_if_ready():
+		pass
 	
 func alter_to_str(alter):
 	return ['♭', '♮', '♯'][alter+1]
@@ -49,33 +54,43 @@ func set_ticks_and_notes(song_info: Dictionary) -> void:
 		tick += note["duration"]
 
 # This function spawns one note at a time.
-func spawn_note(note_data) -> void:
+func spawn_note(note_data, ticks_away=ticks_on_screen) -> void:
 	var note_instance = note_scene.instantiate()
 	# TODO: Put in correct y pos, correct sprite
-	note_instance.position.x = spawn_x
+	note_instance.position.x = spawn_x * float(ticks_away) / ticks_on_screen
 	add_child(note_instance)
 	
 	# Animate the note to move toward the target vertical line.
-	animate_note(note_instance, note_data)
+	animate_note(note_instance, note_data, ticks_away)
 
 # Animate the note instance so that it reaches the target at the right time.
-func animate_note(note_instance: Node2D, note_data: Dictionary) -> void:
+func animate_note(note_instance: Node2D, note_data: Dictionary, ticks_away: int) -> void:
 	# Compute the target position. In this case, we only change the x coordinate.
 	var target_position = note_instance.position
 	target_position.x = 0
 	
 	# Create a Tween to animate the note's position.
 	var tween = get_tree().create_tween()
-	tween.tween_property(note_instance, "position", target_position, travel_time)
+	var adjusted_travel_time = travel_time * float(ticks_away) / ticks_on_screen
+	tween.tween_property(note_instance, "position", target_position, adjusted_travel_time)
 	tween.tween_callback(note_instance.queue_free)
 	
-func spawn_next_note_if_ready() -> void:
-	if next_tick <= current_tick:
-		spawn_note(next_note)
+func spawn_next_note_if_ready() -> bool:
+	# Returns true/false whether we spawned a note
+	if finished:
+		return false
+	var ticks_away = next_tick - current_tick
+	if ticks_away <= ticks_on_screen:
+		spawn_note(next_note, ticks_away)
 		note_index += 1
+		if note_index >= ticks_and_notes.size():
+			finished = true
+			return true
 		var next_tick_and_note = ticks_and_notes[note_index]
 		next_tick = next_tick_and_note[0]
 		next_note = next_tick_and_note[1]
+		return true
+	return false
 
 func _on_conductor_beat_hit(beats_passed: float) -> void:
 	# Sync ticks and timer

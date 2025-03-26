@@ -36,17 +36,20 @@ scale = Vector2(0.5, 0.5)
 [node name="Notes" type="Node" parent="StaffGame"]
 
 [node name="WholeNote" parent="StaffGame/Notes" instance=ExtResource("2_m2vau")]
+visible = false
 position = Vector2(982, 530)
 scale = Vector2(0.137703, 0.140948)
 frame = 3
 frame_progress = 0.0
 
 [node name="HalfNote" parent="StaffGame/Notes" instance=ExtResource("6_n4bd8")]
+visible = false
 position = Vector2(1135, 575)
 scale = Vector2(0.331213, 0.339018)
 script = ExtResource("7_o101a")
 
 [node name="QuarterNote" parent="StaffGame/Notes" instance=ExtResource("8_m5f21")]
+visible = false
 position = Vector2(1249, 481)
 scale = Vector2(0.320222, 0.35191)
 script = ExtResource("9_ss5ih")
