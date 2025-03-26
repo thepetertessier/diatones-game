@@ -40,7 +40,8 @@ animations = [{
 }]
 
 [node name="Note" type="AnimatedSprite2D"]
-position = Vector2(170, 72)
+position = Vector2(47, 21)
+scale = Vector2(0.274653, 0.274653)
 sprite_frames = SubResource("SpriteFrames_fblxk")
 frame_progress = 0.244373
 script = ExtResource("2_u3t2f")

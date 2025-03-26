@@ -25,7 +25,6 @@ func _ready() -> void:
 	y_pos_calculator.set_data(staff.get_top_staff_y(), staff.get_bottom_staff_y(), clef_manager.note_offset, key_manager.key)
 	note_spawner.set_data(song_info)
 	#note_spawner.start_spawning(song_info)
-	await note_spawner.finished_setting_up
 	conductor.start()
 
 func set_pitch_dot_y(midi: float):

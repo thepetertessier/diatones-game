@@ -2,7 +2,7 @@ extends Node2D
 
 # Exported variables for configuration.
 @export var note_scene: PackedScene  # The scene to instantiate for each note.
-@export var spawn_x := 2000.0
+@export var spawn_x := 3000.0
 
 @onready var timer: Timer = $Timer
 
@@ -17,7 +17,7 @@ var next_note: Dictionary
 var next_tick := 0
 var ticks_and_notes: Array = []
 var seconds_per_beat: float
-var travel_time: float  # Should be such that 16 beats can be seen on screen always
+var travel_time: float
 
 func set_data(song_info) -> void:
 	var BPM = song_info["bpm"]
@@ -28,7 +28,7 @@ func set_data(song_info) -> void:
 	set_ticks_and_notes(song_info)
 	next_tick = ticks_and_notes[0][0]
 	next_note = ticks_and_notes[0][1]
-	const beats_on_screen := 16
+	const beats_on_screen := 12
 	travel_time = beats_on_screen * seconds_per_beat
 	finished_setting_up.emit()
 	
@@ -51,6 +51,7 @@ func set_ticks_and_notes(song_info: Dictionary) -> void:
 # This function spawns one note at a time.
 func spawn_note(note_data) -> void:
 	var note_instance = note_scene.instantiate()
+	# TODO: Put in correct y pos, correct sprite
 	note_instance.position.x = spawn_x
 	add_child(note_instance)
 	
