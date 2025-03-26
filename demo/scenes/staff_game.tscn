@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cuvdi3qyruxps"]
+[gd_scene load_steps=14 format=3 uid="uid://cuvdi3qyruxps"]
 
 [ext_resource type="PackedScene" uid="uid://cps1bh5tcsvsb" path="res://scenes/staff.tscn" id="1_gwgkl"]
 [ext_resource type="Script" path="res://scripts/staff_game.gd" id="1_j4qfa"]
@@ -11,6 +11,7 @@
 [ext_resource type="FontFile" uid="uid://d15wmog8oopvj" path="res://assets/fonts/Lobster-Regular.ttf" id="9_w37tv"]
 [ext_resource type="Script" path="res://scripts/clef_manager.gd" id="10_ml4xt"]
 [ext_resource type="FontFile" uid="uid://bjdvfistdy4dj" path="res://assets/fonts/NotoMusic-Regular.ttf" id="11_qarql"]
+[ext_resource type="PackedScene" uid="uid://d2qtjyn16a672" path="res://scenes/song_generator.tscn" id="12_iandj"]
 
 [sub_resource type="Theme" id="Theme_xixxi"]
 default_font = ExtResource("9_w37tv")
@@ -147,5 +148,7 @@ offset_bottom = 423.0
 theme_override_fonts/font = ExtResource("11_qarql")
 theme_override_font_sizes/font_size = 300
 text = "𝄠"
+
+[node name="SongGenerator" parent="." instance=ExtResource("12_iandj")]
 
 [connection signal="midi_updated" from="PitchDetector" to="." method="_on_pitch_detector_midi_updated"]

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2qtjyn16a672"]
+
+[ext_resource type="Script" path="res://scripts/song_generator.gd" id="1_0tgox"]
+
+[node name="SongGenerator" type="Node"]
+script = ExtResource("1_0tgox")
