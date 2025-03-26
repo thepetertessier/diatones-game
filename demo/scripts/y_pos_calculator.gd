@@ -56,3 +56,27 @@ func get_abs_y_pos(midi: float):
 	var rel_y = midi_to_pos(midi, key)
 	#print("midi = ", midi, "  rel_y = ", rel_y)
 	return c4 - dy*rel_y
+
+func get_midi_note(step: String, octave: int, alter: int) -> int:
+	# Mapping for basic note values in semitones relative to C.
+	var note_values = {
+		"C": 0,
+		"D": 2,
+		"E": 4,
+		"F": 5,
+		"G": 7,
+		"A": 9,
+		"B": 11
+	}
+	
+	# Ensure the step is uppercase and valid.
+	step = step.to_upper()
+	if not note_values.has(step):
+		push_error("Invalid note step: " + step)
+		return -1
+	
+	# Compute the MIDI note.
+	# MIDI note number formula: (octave + 1) * 12 + note_value + alter.
+	# This assumes that middle C (C4) is MIDI note 60.
+	var midi_note = (octave + 1) * 12 + note_values[step] + alter
+	return midi_note

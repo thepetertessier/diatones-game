@@ -178,6 +178,7 @@ bus = &"Music"
 [node name="SongGenerator" parent="." instance=ExtResource("12_iandj")]
 
 [node name="YPosCalculator" type="Node" parent="."]
+unique_name_in_owner = true
 script = ExtResource("17_2b8h1")
 
 [connection signal="midi_updated" from="PitchDetector" to="." method="_on_pitch_detector_midi_updated"]

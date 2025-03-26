@@ -5,6 +5,7 @@ extends Node2D
 @export var spawn_x := 3000.0
 
 @onready var timer: Timer = $Timer
+@onready var y_pos_calculator: Node = %YPosCalculator
 
 var tick_duration: float
 var divisions: int
@@ -55,16 +56,27 @@ func set_ticks_and_notes(song_info: Dictionary) -> void:
 
 # This function spawns one note at a time.
 func spawn_note(note_data, ticks_away=ticks_on_screen) -> void:
+	#TODO: implement rest
+	if note_data["is_rest"]:
+		return
+	
 	var note_instance = note_scene.instantiate()
-	# TODO: Put in correct y pos, correct sprite
 	note_instance.position.x = spawn_x * float(ticks_away) / ticks_on_screen
+	var pitch_data = note_data["pitch"]
+	var step = pitch_data["step"]
+	var octave = pitch_data["octave"]
+	var alter = pitch_data["alter"]
+	var midi = y_pos_calculator.get_midi_note(step, octave, alter)
+	var y_pos = y_pos_calculator.get_abs_y_pos(midi)
+	const y_adjust := -20
+	note_instance.position.y = y_pos + y_adjust
 	add_child(note_instance)
 	
 	# Animate the note to move toward the target vertical line.
-	animate_note(note_instance, note_data, ticks_away)
+	animate_note(note_instance, ticks_away)
 
 # Animate the note instance so that it reaches the target at the right time.
-func animate_note(note_instance: Node2D, note_data: Dictionary, ticks_away: int) -> void:
+func animate_note(note_instance: Node2D, ticks_away: int) -> void:
 	# Compute the target position. In this case, we only change the x coordinate.
 	var target_position = note_instance.position
 	target_position.x = 0
