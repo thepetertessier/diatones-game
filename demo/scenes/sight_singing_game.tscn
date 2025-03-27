@@ -1,5 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://bw6bvmfop5wps"]
+[gd_scene load_steps=10 format=3 uid="uid://bw6bvmfop5wps"]
 
+[ext_resource type="Script" path="res://scripts/sight_singing_game.gd" id="1_llsvv"]
+[ext_resource type="AudioStream" uid="uid://c4ehkxcggktpr" path="res://assets/music/Locriana's Lament.mp3" id="2_luyq3"]
 [ext_resource type="PackedScene" uid="uid://cnwdll8gkw8km" path="res://scenes/whole_note.tscn" id="2_m2vau"]
 [ext_resource type="VideoStream" path="res://assets/videos/clouds_scroll.ogv" id="5_72u8p"]
 [ext_resource type="PackedScene" uid="uid://bk7t6g1q1vq23" path="res://scenes/half_note.tscn" id="6_n4bd8"]
@@ -11,6 +13,9 @@
 [node name="SightSingingGame" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+script = ExtResource("1_llsvv")
+music_xml = "res://assets/musicxml/Locriana Tenor.xml"
+music_mp3 = ExtResource("2_luyq3")
 
 [node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
 layout_mode = 0

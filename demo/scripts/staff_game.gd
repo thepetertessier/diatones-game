@@ -1,6 +1,7 @@
 extends Node2D
 
 @export_file("*.xml") var music_xml: String = "res://assets/musicxml/Locriana's Lament.xml"
+@export var music_mp3: AudioStreamMP3
 
 @onready var song_generator: Node = $SongGenerator
 @onready var staff: Node2D = $Staff
@@ -10,9 +11,13 @@ extends Node2D
 @onready var clef_manager: Node2D = $ClefManager
 @onready var y_pos_calculator: Node = $YPosCalculator
 @onready var conductor: Node = %Conductor
+@onready var music_player: AudioStreamPlayer = %MusicPlayer
 @onready var note_spawner: Node2D = %NoteSpawner
 
-func _ready() -> void:
+func set_song_and_start(new_music_xml: String, new_music_mp3: AudioStreamMP3) -> void:
+	music_xml = new_music_xml
+	music_mp3 = new_music_mp3
+
 	var song_info = song_generator.parse_musicxml(music_xml)
 	
 	key_manager.key = song_info["key"]
@@ -24,8 +29,8 @@ func _ready() -> void:
 	
 	y_pos_calculator.set_data(staff.get_top_staff_y(), staff.get_bottom_staff_y(), clef_manager.note_offset, key_manager.key)
 	note_spawner.set_data(song_info)
-	#note_spawner.start_spawning(song_info)
-	conductor.start()
+	music_player.stream = music_mp3
+	conductor.start(song_info["bpm"])
 
 func set_pitch_dot_y(midi: float):
 	var new_y = y_pos_calculator.get_abs_y_pos(midi)

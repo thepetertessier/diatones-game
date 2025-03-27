@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cd6lc5p0rvxhf"
+path="res://.godot/imported/Full - (with solo) Strength to Dance.mp3-5322389586ea56be971e6aad588cdabf.mp3str"
+
+[deps]
+
+source_file="res://assets/music/Full - (with solo) Strength to Dance.mp3"
+dest_files=["res://.godot/imported/Full - (with solo) Strength to Dance.mp3-5322389586ea56be971e6aad588cdabf.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

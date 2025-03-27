@@ -17,7 +17,11 @@ var next_timestamp := 0.0
 func _ready():
 	time_delay = AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency()
 	
-func start():
+func start(new_bpm):
+	BPM = new_bpm
+	seconds_per_beat = 60.0 / BPM
+	beats_passed = 0
+	next_timestamp = 0.0
 	time_begin = Time.get_ticks_usec()
 	music_player.play()
 
