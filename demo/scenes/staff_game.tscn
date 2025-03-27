@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cuvdi3qyruxps"]
+[gd_scene load_steps=23 format=3 uid="uid://cuvdi3qyruxps"]
 
 [ext_resource type="PackedScene" uid="uid://cps1bh5tcsvsb" path="res://scenes/staff.tscn" id="1_gwgkl"]
 [ext_resource type="Script" path="res://scripts/staff_game.gd" id="1_j4qfa"]
@@ -13,7 +13,6 @@
 [ext_resource type="FontFile" uid="uid://bjdvfistdy4dj" path="res://assets/fonts/NotoMusic-Regular.ttf" id="11_qarql"]
 [ext_resource type="PackedScene" uid="uid://d2qtjyn16a672" path="res://scenes/song_generator.tscn" id="12_iandj"]
 [ext_resource type="Script" path="res://scripts/note_spawner.gd" id="12_o8mnf"]
-[ext_resource type="PackedScene" uid="uid://ddyhnl4xu4o74" path="res://scenes/note.tscn" id="13_rh8um"]
 [ext_resource type="PackedScene" uid="uid://b4pg1b7o8aq63" path="res://scenes/conductor.tscn" id="15_kw7yq"]
 [ext_resource type="AudioStream" uid="uid://c4ehkxcggktpr" path="res://assets/music/Locriana's Lament.mp3" id="16_6sa2d"]
 [ext_resource type="Script" path="res://scripts/y_pos_calculator.gd" id="17_2b8h1"]
@@ -224,7 +223,6 @@ position = Vector2(0, 150)
 [node name="NoteSpawner" type="Node2D" parent="PitchHitX"]
 unique_name_in_owner = true
 script = ExtResource("12_o8mnf")
-note_scene = ExtResource("13_rh8um")
 
 [node name="Conductor" parent="PitchHitX/NoteSpawner" instance=ExtResource("15_kw7yq")]
 unique_name_in_owner = true

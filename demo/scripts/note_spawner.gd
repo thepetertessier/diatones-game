@@ -1,7 +1,6 @@
 extends Node2D
 
 # Exported variables for configuration.
-@export var note_scene: PackedScene  # The scene to instantiate for each note.
 @export var spawn_x := 3000.0
 
 @onready var timer: Timer = $Timer
@@ -20,6 +19,7 @@ var seconds_per_beat: float
 var travel_time: float
 var ticks_on_screen: int
 var finished := false
+var note_scene
 
 func set_data(song_info) -> void:
 	var BPM = song_info["bpm"]
@@ -33,6 +33,7 @@ func set_data(song_info) -> void:
 	const beats_on_screen := 12
 	ticks_on_screen = beats_on_screen*divisions
 	travel_time = beats_on_screen * seconds_per_beat
+	note_scene = preload("res://scenes/note.tscn")
 	spawn_preliminary_notes()
 
 func spawn_preliminary_notes():
@@ -76,6 +77,7 @@ func spawn_note(note_data, ticks_away=ticks_on_screen) -> void:
 	
 	var note_instance = note_scene.instantiate()
 	note_instance.position.x = spawn_x * float(ticks_away) / ticks_on_screen
+	add_child(note_instance)
 	var pitch_data = note_data["pitch"]
 	var step = pitch_data["step"]
 	var octave = pitch_data["octave"]
@@ -85,7 +87,7 @@ func spawn_note(note_data, ticks_away=ticks_on_screen) -> void:
 	var y_pos = y_pos_calculator.get_abs_y_pos(midi)
 	const y_adjust := 20
 	note_instance.position.y = y_pos + y_adjust
-	add_child(note_instance)
+	note_instance.set_sprite(note_data["duration"], divisions, note_data["accidental"])
 	
 	# Animate the note to move toward the target vertical line.
 	animate_note(note_instance, ticks_away)
