@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cuvdi3qyruxps"]
+[gd_scene load_steps=24 format=3 uid="uid://cuvdi3qyruxps"]
 
 [ext_resource type="PackedScene" uid="uid://cps1bh5tcsvsb" path="res://scenes/staff.tscn" id="1_gwgkl"]
 [ext_resource type="Script" path="res://scripts/staff_game.gd" id="1_j4qfa"]
@@ -21,6 +21,55 @@
 [sub_resource type="Theme" id="Theme_xixxi"]
 default_font = ExtResource("9_w37tv")
 default_font_size = 190
+
+[sub_resource type="Curve" id="Curve_al08q"]
+max_value = 2.0
+_data = [Vector2(0, 0.6), 0.0, 0.0, 0, 0, Vector2(0.5, 2), 0.0, 0.0, 0, 0, Vector2(1, 0.6), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_840bq"]
+offsets = PackedFloat32Array(0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 1)
+colors = PackedColorArray(0.564706, 0.941176, 0.415686, 1, 1, 1, 1, 1, 0.564706, 0.941176, 0.415686, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.564706, 0.941176, 0.415686, 1, 1, 1, 1, 1, 0.564706, 0.941176, 0.415686, 1)
+
+[sub_resource type="Animation" id="Animation_8nsbf"]
+resource_name = "line_flow"
+length = 2.0
+loop_mode = 1
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:gradient:offsets")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [PackedFloat32Array(0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 1), PackedFloat32Array(0, 0, 0.5, 0.5, 0.5, 0.5, 0.5, 1, 1), PackedFloat32Array(0, 0, 0, 0.5, 0.5, 0.5, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_wdh8t"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:gradient:offsets")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedFloat32Array(0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6u776"]
+_data = {
+"RESET": SubResource("Animation_wdh8t"),
+"line_flow": SubResource("Animation_8nsbf")
+}
 
 [node name="StaffGame" type="Node2D"]
 script = ExtResource("1_j4qfa")
@@ -156,6 +205,18 @@ text = "𝄞"
 
 [node name="PitchHitX" type="Node2D" parent="."]
 position = Vector2(860, 0)
+
+[node name="LineHit" type="Line2D" parent="PitchHitX"]
+points = PackedVector2Array(0, -75, 0, 0, 0, 75, 0, 150, 0, 225, 0, 300, 0, 375)
+width_curve = SubResource("Curve_al08q")
+default_color = Color(0.564706, 0.941176, 0.415686, 1)
+gradient = SubResource("Gradient_840bq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PitchHitX/LineHit"]
+libraries = {
+"": SubResource("AnimationLibrary_6u776")
+}
+autoplay = "line_flow"
 
 [node name="PitchDot" parent="PitchHitX" instance=ExtResource("4_84sfh")]
 position = Vector2(0, 150)

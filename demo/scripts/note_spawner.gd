@@ -6,6 +6,7 @@ extends Node2D
 
 @onready var timer: Timer = $Timer
 @onready var y_pos_calculator: Node = %YPosCalculator
+@onready var key_manager: Node2D = %KeyManager
 
 var tick_duration: float
 var divisions: int
@@ -47,9 +48,22 @@ func note_to_str(note_data):
 	var note_pitch = note_data["pitch"]
 	return note_pitch["step"] + alter_to_str(note_pitch["alter"]) + str(note_pitch["octave"])
 
+func add_accidental_info(note_data: Dictionary, key: int) -> void:
+	var alter = note_data["pitch"]["alter"]
+	var step = note_data["pitch"]["step"]
+	const fifths = {"F": 0, "C": 1, "G": 2, "D": 3, "A": 4, "E": 5, "B": 6}
+	var order = fifths[step]
+	note_data["accidental"] = get_accidental_status(order, alter, key)
+
+func get_accidental_status(order: int, alter: int, key: int) -> int:
+	var min_key = order - 6 + 7*alter
+	return -floor((key - min_key) / 7.0)
+
 func set_ticks_and_notes(song_info: Dictionary) -> void:
 	var tick := 0
 	for note in song_info["notes"]:
+		if not note["is_rest"]:
+			add_accidental_info(note, key_manager.key)
 		ticks_and_notes.append([tick, note])
 		print("Added note " + note_to_str(note) + " at tick " + str(tick))
 		tick += note["duration"]
@@ -67,8 +81,9 @@ func spawn_note(note_data, ticks_away=ticks_on_screen) -> void:
 	var octave = pitch_data["octave"]
 	var alter = pitch_data["alter"]
 	var midi = y_pos_calculator.get_midi_note(step, octave, alter)
+	midi -= note_data["accidental"]  # Adjust for accidental; e.g., if it's flat, it is displayed a little higher
 	var y_pos = y_pos_calculator.get_abs_y_pos(midi)
-	const y_adjust := -20
+	const y_adjust := 20
 	note_instance.position.y = y_pos + y_adjust
 	add_child(note_instance)
 	
@@ -79,12 +94,14 @@ func spawn_note(note_data, ticks_away=ticks_on_screen) -> void:
 func animate_note(note_instance: Node2D, ticks_away: int) -> void:
 	# Compute the target position. In this case, we only change the x coordinate.
 	var target_position = note_instance.position
-	target_position.x = 0
+	target_position.x = 60 # Manually adjust
 	
 	# Create a Tween to animate the note's position.
 	var tween = get_tree().create_tween()
 	var adjusted_travel_time = travel_time * float(ticks_away) / ticks_on_screen
 	tween.tween_property(note_instance, "position", target_position, adjusted_travel_time)
+	tween.tween_property(note_instance, "scale", Vector2(), tick_duration)
+	tween.parallel().tween_property(note_instance, "position", Vector2(target_position.x-50, target_position.y), tick_duration)
 	tween.tween_callback(note_instance.queue_free)
 	
 func spawn_next_note_if_ready() -> bool:
@@ -108,11 +125,11 @@ func _on_conductor_beat_hit(beats_passed: float) -> void:
 	# Sync ticks and timer
 	current_tick = beats_passed*divisions
 	timer.start()
-	print("tick: ", current_tick, "---")
+	#print("tick: ", current_tick, "---")
 	spawn_next_note_if_ready()
 
 func _on_timer_timeout() -> void:
 	# Runs every tick, for when there's notes in between beats
 	current_tick += 1
-	print("tick: ", current_tick)
+	#print("tick: ", current_tick)
 	spawn_next_note_if_ready()
