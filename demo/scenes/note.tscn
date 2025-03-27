@@ -14,3 +14,11 @@ offset_right = 177.827
 offset_bottom = 302.481
 theme_override_font_sizes/font_size = 1000
 text = "𝅘𝅥𝅮"
+
+[node name="AccidentalLabel" type="Label" parent="."]
+offset_left = -538.862
+offset_top = -517.016
+offset_right = -7.86176
+offset_bottom = 844.984
+theme_override_font_sizes/font_size = 600
+text = "♯"
