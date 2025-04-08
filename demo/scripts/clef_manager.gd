@@ -36,4 +36,4 @@ func update_display():
 			note_offset = 12
 			%KeyManager.position.y = 75
 			
-	print("Updated clef: ", clef)
+	#print("Updated clef: ", clef)

@@ -26,4 +26,4 @@ func update_display():
 		beats_label.text = str(beats)
 	if beat_type_label:
 		beat_type_label.text = str(beat_type)
-	print("Updated time signature: ", beats, "/", beat_type)
+	#print("Updated time signature: ", beats, "/", beat_type)

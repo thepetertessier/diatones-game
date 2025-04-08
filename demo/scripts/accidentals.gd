@@ -50,4 +50,4 @@ func update_display():
 	if time_signature_manager:
 		time_signature_manager.position.x = 300 + abs(key)*60
 	
-	print("Updated key to ", key)
+	#print("Updated key to ", key)

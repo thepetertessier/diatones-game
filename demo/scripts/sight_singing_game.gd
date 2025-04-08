@@ -4,8 +4,8 @@ extends Control
 @export var music_mp3: AudioStreamMP3
 
 @onready var staff_game: Node2D = $StaffGame
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	staff_game.set_song_and_start(music_xml, music_mp3)
+@onready var start_button: Button = $StartButton
 	
+func _on_start_button_pressed() -> void:
+	start_button.visible = false
+	staff_game.set_song_and_start(music_xml, music_mp3)
