@@ -63,6 +63,8 @@ func get_accidental_status(order: int, alter: int, key: int) -> int:
 func set_ticks_and_notes(song_info: Dictionary) -> void:
 	var tick := 0
 	for note in song_info["notes"]:
+		if not note["duration"]:
+			continue
 		if not note["is_rest"]:
 			add_accidental_info(note, key_manager.key)
 		ticks_and_notes.append([tick, note])
