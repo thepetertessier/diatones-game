@@ -1,13 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://bw6bvmfop5wps"]
+[gd_scene load_steps=5 format=3 uid="uid://bw6bvmfop5wps"]
 
 [ext_resource type="Script" path="res://scripts/sight_singing_game.gd" id="1_llsvv"]
 [ext_resource type="AudioStream" uid="uid://c4ehkxcggktpr" path="res://assets/music/Locriana's Lament.mp3" id="2_luyq3"]
-[ext_resource type="PackedScene" uid="uid://cnwdll8gkw8km" path="res://scenes/whole_note.tscn" id="2_m2vau"]
 [ext_resource type="VideoStream" path="res://assets/videos/clouds_scroll.ogv" id="5_72u8p"]
-[ext_resource type="PackedScene" uid="uid://bk7t6g1q1vq23" path="res://scenes/half_note.tscn" id="6_n4bd8"]
-[ext_resource type="Script" path="res://scripts/half_note.gd" id="7_o101a"]
-[ext_resource type="PackedScene" uid="uid://c15d44to45owe" path="res://scenes/quarter_note.tscn" id="8_m5f21"]
-[ext_resource type="Script" path="res://scripts/quarter_note.gd" id="9_ss5ih"]
 [ext_resource type="PackedScene" uid="uid://cuvdi3qyruxps" path="res://scenes/staff_game.tscn" id="9_ypylt"]
 
 [node name="SightSingingGame" type="Control"]
@@ -37,27 +32,6 @@ color = Color(0, 0, 0, 0.654902)
 [node name="StaffGame" parent="." instance=ExtResource("9_ypylt")]
 position = Vector2(0, 464)
 scale = Vector2(0.5, 0.5)
-
-[node name="Notes" type="Node" parent="StaffGame"]
-
-[node name="WholeNote" parent="StaffGame/Notes" instance=ExtResource("2_m2vau")]
-visible = false
-position = Vector2(982, 530)
-scale = Vector2(0.137703, 0.140948)
-frame = 3
-frame_progress = 0.0
-
-[node name="HalfNote" parent="StaffGame/Notes" instance=ExtResource("6_n4bd8")]
-visible = false
-position = Vector2(1135, 575)
-scale = Vector2(0.331213, 0.339018)
-script = ExtResource("7_o101a")
-
-[node name="QuarterNote" parent="StaffGame/Notes" instance=ExtResource("8_m5f21")]
-visible = false
-position = Vector2(1249, 481)
-scale = Vector2(0.320222, 0.35191)
-script = ExtResource("9_ss5ih")
 
 [node name="StartButton" type="Button" parent="."]
 layout_mode = 1

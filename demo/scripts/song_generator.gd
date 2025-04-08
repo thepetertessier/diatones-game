@@ -147,7 +147,7 @@ func parse_musicxml(path_to_musicxml: String) -> Dictionary:
 						break
 				representation["notes"].append(note_info)
 	
-	print(representation)
+	#print(representation)
 	validate_representation(representation)
 	return representation
 
