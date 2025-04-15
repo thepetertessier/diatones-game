@@ -36,11 +36,7 @@ func set_data(song_info) -> void:
 	note_scene = preload("res://scenes/note.tscn")
 
 func start():
-	spawn_preliminary_notes()
-
-func spawn_preliminary_notes():
-	while spawn_next_note_if_ready():
-		pass
+	spawn_all_ready_notes()
 	
 func alter_to_str(alter):
 	return ['♭', '♮', '♯'][alter+1]
@@ -70,7 +66,7 @@ func set_ticks_and_notes(song_info: Dictionary) -> void:
 		if not note["is_rest"]:
 			add_accidental_info(note, key_manager.key)
 		ticks_and_notes.append([tick, note])
-		print("Added note " + note_to_str(note) + " at tick " + str(tick))
+		#print("Added note " + note_to_str(note) + " at tick " + str(tick))
 		tick += note["duration"]
 
 # This function spawns one note at a time.
@@ -126,16 +122,20 @@ func spawn_next_note_if_ready() -> bool:
 		next_note = next_tick_and_note[1]
 		return true
 	return false
+	
+func spawn_all_ready_notes():
+	while spawn_next_note_if_ready():
+		pass
 
 func _on_conductor_beat_hit(beats_passed: float) -> void:
 	# Sync ticks and timer
 	current_tick = beats_passed*divisions
 	timer.start()
 	#print("tick: ", current_tick, "---")
-	spawn_next_note_if_ready()
+	spawn_all_ready_notes()
 
 func _on_timer_timeout() -> void:
 	# Runs every tick, for when there's notes in between beats
 	current_tick += 1
 	#print("tick: ", current_tick)
-	spawn_next_note_if_ready()
+	spawn_all_ready_notes()

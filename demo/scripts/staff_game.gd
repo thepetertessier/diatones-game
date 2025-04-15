@@ -13,6 +13,7 @@ extends Node2D
 @onready var conductor: Node = %Conductor
 @onready var music_player: AudioStreamPlayer = %MusicPlayer
 @onready var note_spawner: Node2D = %NoteSpawner
+@onready var pitch_detector: PitchDetector = %PitchDetector
 
 var bpm: float
 

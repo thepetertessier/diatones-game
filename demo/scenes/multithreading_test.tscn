@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://kqiu547rk5mj"]
+
+[ext_resource type="Script" path="res://scripts/multithreading_demo.gd" id="1_ry0g6"]
+
+[node name="MultithreadingTest" type="Node2D"]
+
+[node name="MultithreadingDemo" type="Node" parent="."]
+script = ExtResource("1_ry0g6")

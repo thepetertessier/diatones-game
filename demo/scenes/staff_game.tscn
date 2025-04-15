@@ -79,6 +79,7 @@ music_mp3 = ExtResource("16_6sa2d")
 unique_name_in_owner = true
 
 [node name="PitchDetector" parent="." instance=ExtResource("4_npvsp")]
+unique_name_in_owner = true
 
 [node name="KeyManager" type="Node2D" parent="."]
 unique_name_in_owner = true
