@@ -17,12 +17,15 @@ var seconds_per_beat: float
 var travel_time: float
 var ticks_on_screen: int
 var finished := false
-var note_scene
+var note_scene: PackedScene
+var measure_bar_scene: PackedScene
+var beats: int
 
 func set_data(song_info) -> void:
 	var BPM = song_info["bpm"]
 	spawn_x = max(3000, 40*(BPM - 5))  # Musical notes move faster when BPM is higher
 	divisions = song_info["divisions"]
+	beats = song_info["time_signature"]["beats"]
 	seconds_per_beat = 60.0 / BPM
 	tick_duration = seconds_per_beat / divisions
 	timer.set_wait_time(tick_duration)
@@ -33,6 +36,7 @@ func set_data(song_info) -> void:
 	ticks_on_screen = beats_on_screen*divisions
 	travel_time = beats_on_screen * seconds_per_beat
 	note_scene = preload("res://scenes/note.tscn")
+	measure_bar_scene = preload("res://scenes/vertical_staff_line.tscn")
 
 func start():
 	spawn_all_ready_notes()
@@ -67,11 +71,13 @@ func set_ticks_and_notes(song_info: Dictionary) -> void:
 		ticks_and_notes.append([tick, note])
 		#print("Added note " + note_to_str(note) + " at tick " + str(tick))
 		tick += note["duration"]
+		
+func get_adjusted_spawn_x(ticks_away):
+	return spawn_x * float(ticks_away) / ticks_on_screen
 
 # This function spawns one note at a time.
 func spawn_note(note_data, ticks_away=ticks_on_screen) -> void:
 	var note_instance = note_scene.instantiate()
-	note_instance.position.x = spawn_x * float(ticks_away) / ticks_on_screen
 	add_child(note_instance)
 	var y_pos = 150
 	
@@ -94,10 +100,12 @@ func spawn_note(note_data, ticks_away=ticks_on_screen) -> void:
 	animate_note(note_instance, ticks_away)
 
 # Animate the note instance so that it reaches the target at the right time.
-func animate_note(note_instance: Node2D, ticks_away: int) -> void:
+func animate_note(note_instance: Node2D, ticks_away: int, x_adjust := 0.0) -> void:
 	# Compute the target position. In this case, we only change the x coordinate.
+	note_instance.position.x += get_adjusted_spawn_x(ticks_away) + x_adjust
 	var target_position = note_instance.position
-	target_position.x = 60 # Manually adjust
+	target_position.x = 60  # Experimentally determined
+	target_position.x += x_adjust
 	
 	# Create a Tween to animate the note's position.
 	var tween = get_tree().create_tween()
@@ -121,8 +129,18 @@ func spawn_next_note_if_ready() -> bool:
 		var next_tick_and_note = ticks_and_notes[note_index]
 		next_tick = next_tick_and_note[0]
 		next_note = next_tick_and_note[1]
+		
+		# Spawn measure bar if ready
+		if next_tick % (divisions * beats) == 0:
+			spawn_measure_bar(next_tick - current_tick)
+		
 		return true
 	return false
+
+func spawn_measure_bar(ticks_away):
+	var measure_bar = measure_bar_scene.instantiate()
+	add_child(measure_bar)
+	animate_note(measure_bar, ticks_away, -100)
 	
 func spawn_all_ready_notes():
 	while spawn_next_note_if_ready():
