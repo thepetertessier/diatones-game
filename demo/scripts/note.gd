@@ -37,7 +37,7 @@ func set_sprite(duration: int, divisions: int, accidental: int, true_alter: int,
 	if not stem_is_up:
 		label.set_rotation_degrees(180)
 
-func set_rest(type: String):
+func set_rest(type):
 	const sub_quarter_y = -604.399
 	const half_whole_x = -436.915
 	const rest_chars = {
@@ -49,7 +49,7 @@ func set_rest(type: String):
 		"half": ['𝄼', Vector2(half_whole_x, -717.269)],
 		"whole": ['𝄻', Vector2(half_whole_x, -487.888)]
 	}
-	var char_and_y = rest_chars.get(type, '')
+	var char_and_y = rest_chars.get(type, ['', Vector2()])
 	label.text = char_and_y[0]
 	label.position = char_and_y[1]
 	accidental_label.text = ''

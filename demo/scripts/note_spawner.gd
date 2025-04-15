@@ -1,11 +1,10 @@
 extends Node2D
 
-@export var spawn_x := 3000.0
-
 @onready var timer: Timer = $Timer
 @onready var y_pos_calculator: Node = %YPosCalculator
 @onready var key_manager: Node2D = %KeyManager
 
+var spawn_x := 3000.0
 var tick_duration: float
 var divisions: int
 var notes_per_tick := {}
@@ -22,6 +21,7 @@ var note_scene
 
 func set_data(song_info) -> void:
 	var BPM = song_info["bpm"]
+	spawn_x = max(3000, 40*(BPM - 5))  # Musical notes move faster when BPM is higher
 	divisions = song_info["divisions"]
 	seconds_per_beat = 60.0 / BPM
 	tick_duration = seconds_per_beat / divisions
