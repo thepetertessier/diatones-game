@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cy6v1ivmol20x"]
+
+[ext_resource type="PackedScene" uid="uid://bw6bvmfop5wps" path="res://scenes/sight_singing_game.tscn" id="1_e6ve5"]
+[ext_resource type="AudioStream" uid="uid://lopxx4jwfcxk" path="res://assets/music/Full - Nadie_como_tu.mp3" id="2_4yk5k"]
+
+[node name="NadieComoTuBassEncounter" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SightSingingGame" parent="." instance=ExtResource("1_e6ve5")]
+music_xml = "res://assets/musicxml/Nadie_como_tu-Bass.xml"
+music_mp3 = ExtResource("2_4yk5k")

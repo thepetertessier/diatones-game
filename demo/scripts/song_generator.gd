@@ -29,7 +29,7 @@ func sign_and_line_to_clef(sign: String, line: int, clef_octave_change: int):
 	if sign == 'F' and line == 4 and clef_octave_change == 0:
 		return BASS
 	# Should not get here
-	assert(false)
+	assert(false, "Unrecognized clef (sign: %s, line: %s, octave_change: %s)" % [sign, line, clef_octave_change])
 
 func parse_musicxml(path_to_musicxml: String) -> Dictionary:
 	var parser = XMLParser.new()
@@ -146,12 +146,14 @@ func parse_musicxml(path_to_musicxml: String) -> Dictionary:
 					elif parser.get_node_type() == XMLParser.NODE_ELEMENT_END and parser.get_node_name() == "note":
 						break
 				representation["notes"].append(note_info)
+		
+			elif element_name == "barline":
+				# Song is over
+				break
 	
 	#print(representation)
 	validate_representation(representation)
 	return representation
 
 func validate_representation(representation):
-	if not representation["bpm"]:
-		printerr("BPM is not set in MusicXML")
-		assert(false)
+	assert(representation["bpm"], "BPM is not set in MusicXML")

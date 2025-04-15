@@ -56,5 +56,5 @@ func db_to_percentage(db: float) -> float:
 	return clamp(curved, 0.0, 1.0)
 
 func _on_pitch_detector_db_updated(new_db: float) -> void:
-	print("Db: ", new_db)
+	#print("Db: ", new_db)
 	pitch_dot.set_particle_amount(db_to_percentage(new_db))

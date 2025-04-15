@@ -1,6 +1,5 @@
 extends Node2D
 
-# Exported variables for configuration.
 @export var spawn_x := 3000.0
 
 @onready var timer: Timer = $Timer
@@ -87,7 +86,7 @@ func spawn_note(note_data, ticks_away=ticks_on_screen) -> void:
 	var y_pos = y_pos_calculator.get_abs_y_pos(midi)
 	const y_adjust := 20
 	note_instance.position.y = y_pos + y_adjust
-	note_instance.set_sprite(note_data["duration"], divisions, note_data["accidental"])
+	note_instance.set_sprite(note_data["duration"], divisions, note_data["accidental"], alter)
 	
 	# Animate the note to move toward the target vertical line.
 	animate_note(note_instance, ticks_away)

@@ -16,9 +16,10 @@ theme_override_font_sizes/font_size = 1000
 text = "𝅘𝅥𝅮"
 
 [node name="AccidentalLabel" type="Label" parent="."]
-offset_left = -538.862
-offset_top = -517.016
-offset_right = -7.86176
-offset_bottom = 844.984
+offset_left = -1981.0
+offset_top = -375.019
+offset_right = -303.0
+offset_bottom = 986.981
 theme_override_font_sizes/font_size = 600
-text = "♯"
+text = "𝄪"
+horizontal_alignment = 2
