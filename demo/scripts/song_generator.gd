@@ -118,7 +118,8 @@ func parse_musicxml(path_to_musicxml: String) -> Dictionary:
 					"duration": null,
 					"is_rest": false,
 					"stem_is_up": true,
-					"type": null
+					"type": null,
+					"tie": null,
 				}
 				while parser.read() == OK:
 					if parser.get_node_type() == XMLParser.NODE_ELEMENT:
@@ -149,6 +150,10 @@ func parse_musicxml(path_to_musicxml: String) -> Dictionary:
 							note_info["stem_is_up"] = read_text(parser) == "up"
 						elif child_name == "type":
 							note_info["type"] = read_text(parser)
+						elif child_name == "tie":
+							if parser.has_attribute("type"):
+								# "start" or "stop"
+								note_info["tie"] = parser.get_attribute_value(0)
 					elif parser.get_node_type() == XMLParser.NODE_ELEMENT_END and parser.get_node_name() == "note":
 						break
 				representation["notes"].append(note_info)

@@ -17,18 +17,17 @@ func _ready():
 func accidental_to_str(accidental) -> String:
 	return ['♭♭', '♭', '♮', '♯', '♯♯'][accidental+2]
 
-func set_sprite(duration: int, divisions: int, accidental: int, true_alter: int, stem_is_up: bool, ledger: int) -> void:
+func set_sprite(type: String, accidental: int, true_alter: int, stem_is_up: bool, ledger: int) -> void:
 	const note_chars = {
-		1<<0: "𝅘𝅥𝅲",
-		1<<1: "𝅘𝅥𝅱",
-		1<<2: "𝅘𝅥𝅰",
-		1<<3: "𝅘𝅥𝅯",
-		1<<4: "𝅘𝅥𝅮",
-		1<<5: "𝅘𝅥",
-		1<<6: "𝅗𝅥",
-		1<<7: "𝅗"
+		"64th": "𝅘𝅥𝅱",
+		"32nd": "𝅘𝅥𝅰",
+		"16th": "𝅘𝅥𝅯",
+		"eighth": "𝅘𝅥𝅮",
+		"quarter": "𝅘𝅥",
+		"half": "𝅗𝅥",
+		"whole": "𝅗"
 	}
-	var note_char: String = note_chars.get(duration << (6-divisions), '𝅘')
+	var note_char: String = note_chars.get(type, '𝅘')
 	if note_char in ['𝅗', '𝅘']:
 		# Otherwise it would make it look like it has a tiny staff
 		inline.set_visible(false)

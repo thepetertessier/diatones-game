@@ -119,7 +119,7 @@ func spawn_note(note_data, ticks_away=ticks_on_screen) -> void:
 		midi -= note_data["accidental"]  # Adjust for accidental; e.g., if it's flat, it is displayed a little higher
 		var ledger = get_ledger_lines(clef, step, octave)
 		y_pos = y_pos_calculator.get_abs_y_pos(midi)
-		note_instance.set_sprite(note_data["duration"], divisions, note_data["accidental"], alter, note_data["stem_is_up"], ledger)
+		note_instance.set_sprite(note_data["type"], note_data["accidental"], alter, note_data["stem_is_up"], ledger)
 		
 	const y_adjust := 20
 	note_instance.position.y = y_pos + y_adjust
