@@ -10,7 +10,7 @@ func _ready():
 func accidental_to_str(accidental) -> String:
 	return ['♭♭', '♭', '♮', '♯', '♯♯'][accidental+2]
 
-func set_sprite(duration: int, divisions: int, accidental: int, true_alter: int) -> void:
+func set_sprite(duration: int, divisions: int, accidental: int, true_alter: int, stem_is_up: bool) -> void:
 	const note_chars = {
 		1<<0: "𝅘𝅥𝅲",
 		1<<1: "𝅘𝅥𝅱",
@@ -32,3 +32,6 @@ func set_sprite(duration: int, divisions: int, accidental: int, true_alter: int)
 		accidental_label.position.y = -517.016
 	else:
 		accidental_label.position.y = -375.019
+		
+	if not stem_is_up:
+		label.set_rotation_degrees(180)

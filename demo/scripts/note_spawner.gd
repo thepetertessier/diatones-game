@@ -86,7 +86,7 @@ func spawn_note(note_data, ticks_away=ticks_on_screen) -> void:
 	var y_pos = y_pos_calculator.get_abs_y_pos(midi)
 	const y_adjust := 20
 	note_instance.position.y = y_pos + y_adjust
-	note_instance.set_sprite(note_data["duration"], divisions, note_data["accidental"], alter)
+	note_instance.set_sprite(note_data["duration"], divisions, note_data["accidental"], alter, note_data["stem_is_up"])
 	
 	# Animate the note to move toward the target vertical line.
 	animate_note(note_instance, ticks_away)
