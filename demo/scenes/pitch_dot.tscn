@@ -1,4 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://c0tnbuh63diub"]
+[gd_scene load_steps=7 format=3 uid="uid://c0tnbuh63diub"]
+
+[ext_resource type="Script" path="res://scripts/pitch_dot.gd" id="1_65oa7"]
 
 [sub_resource type="Gradient" id="Gradient_lw1pm"]
 offsets = PackedFloat32Array(0, 0.175325, 0.363636, 1)
@@ -22,6 +24,7 @@ offsets = PackedFloat32Array(0, 0.453333, 1)
 colors = PackedColorArray(0.905882, 0.843137, 0.243137, 0.882353, 0.407843, 0.772549, 0.470588, 0.568627, 1, 1, 1, 0.537255)
 
 [node name="PitchDot" type="Node2D"]
+script = ExtResource("1_65oa7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("GradientTexture2D_03h5h")
@@ -40,7 +43,7 @@ scale_amount_curve = SubResource("Curve_lsu4j")
 color_ramp = SubResource("Gradient_u5fsv")
 
 [node name="OuterParts" type="CPUParticles2D" parent="."]
-amount = 500
+amount = 1000
 lifetime = 1.5
 emission_shape = 1
 emission_sphere_radius = 34.61

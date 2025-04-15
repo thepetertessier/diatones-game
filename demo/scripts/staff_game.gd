@@ -5,7 +5,6 @@ extends Node2D
 
 @onready var song_generator: Node = $SongGenerator
 @onready var staff: Node2D = $Staff
-@onready var pitch_dot: Node2D = $PitchHitX/PitchDot
 @onready var key_manager: Node2D = $KeyManager
 @onready var time_signature_manager: Node2D = %TimeSignatureManager
 @onready var clef_manager: Node2D = $ClefManager
@@ -14,6 +13,7 @@ extends Node2D
 @onready var music_player: AudioStreamPlayer = %MusicPlayer
 @onready var note_spawner: Node2D = %NoteSpawner
 @onready var pitch_detector: PitchDetector = %PitchDetector
+@onready var pitch_dot: Node2D = %PitchDot
 
 var bpm: float
 
@@ -45,3 +45,16 @@ func set_pitch_dot_y(midi: float):
 
 func _on_pitch_detector_midi_updated(new_midi: float) -> void:
 	set_pitch_dot_y(new_midi)
+	
+func db_to_percentage(db: float) -> float:
+	var min_db := -60.0  # Set a noise floor (ignore anything quieter than this)
+	db = clamp(db, min_db, 0.0)
+	
+	# Remap range [-30 to -3] into [0.0 to 1.0] with an exponential curve
+	var normalized := (db + 30.0) / 27.0  # Maps -30 -> 0, -3 -> 1
+	var curved := pow(normalized, 4.0)    # Smooth curve — adjust exponent for shape
+	return clamp(curved, 0.0, 1.0)
+
+func _on_pitch_detector_db_updated(new_db: float) -> void:
+	print("Db: ", new_db)
+	pitch_dot.set_particle_amount(db_to_percentage(new_db))
