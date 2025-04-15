@@ -2,15 +2,22 @@ extends Node2D
 
 @onready var label: Label = $Label
 @onready var accidental_label: Label = $AccidentalLabel
+@onready var ledgers: Node2D = $Label/Ledgers
+@onready var ledger_line_1: Node2D = $Label/Ledgers/LedgerLine1
+@onready var ledger_line_2: Node2D = $Label/Ledgers/LedgerLine2
+@onready var inline: Line2D = $Label/Ledgers/LedgerLine2/Inline
+@onready var in_label: Label = $Label/Ledgers/LedgerLine1/InLabel
 
 func _ready():
 	if label == null:
 		push_error("Label node not found. Please check the node path.")
+	ledger_line_1.set_visible(false)
+	ledger_line_2.set_visible(false)
 
 func accidental_to_str(accidental) -> String:
 	return ['♭♭', '♭', '♮', '♯', '♯♯'][accidental+2]
 
-func set_sprite(duration: int, divisions: int, accidental: int, true_alter: int, stem_is_up: bool) -> void:
+func set_sprite(duration: int, divisions: int, accidental: int, true_alter: int, stem_is_up: bool, ledger: int) -> void:
 	const note_chars = {
 		1<<0: "𝅘𝅥𝅲",
 		1<<1: "𝅘𝅥𝅱",
@@ -22,6 +29,15 @@ func set_sprite(duration: int, divisions: int, accidental: int, true_alter: int,
 		1<<7: "𝅗"
 	}
 	var note_char: String = note_chars.get(duration << (6-divisions), '𝅘')
+	if note_char in ['𝅗', '𝅘']:
+		# Otherwise it would make it look like it has a tiny staff
+		inline.set_visible(false)
+	
+	if note_char in ['𝅗𝅥', '𝅗']:
+		in_label.text = '𝅗'
+	else:
+		in_label.text = '𝅘'
+	
 	accidental_label.text = accidental_to_str(true_alter) if accidental != 0 else ''
 	label.text = note_char
 	label.position = Vector2(-353.173, -1055.878)
@@ -36,6 +52,14 @@ func set_sprite(duration: int, divisions: int, accidental: int, true_alter: int,
 		
 	if not stem_is_up:
 		label.set_rotation_degrees(180)
+	
+	if ledger >= 2:
+		ledger_line_1.set_visible(true)
+	if ledger >= 4:
+		ledger_line_2.set_visible(true)
+	
+	#if ledger % 2 == 1:
+		#ledgers.position.y -= 100
 
 func set_rest(type):
 	const sub_quarter_y = -604.399

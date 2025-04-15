@@ -20,9 +20,13 @@ var finished := false
 var note_scene: PackedScene
 var measure_bar_scene: PackedScene
 var beats: int
+var clef: int
+
+enum {TREBLE, TENOR, BASS}
 
 func set_data(song_info) -> void:
 	var BPM = song_info["bpm"]
+	clef = song_info["clef"]
 	spawn_x = max(3000, 40*(BPM - 5))  # Musical notes move faster when BPM is higher
 	divisions = song_info["divisions"]
 	beats = song_info["time_signature"]["beats"]
@@ -75,6 +79,29 @@ func set_ticks_and_notes(song_info: Dictionary) -> void:
 func get_adjusted_spawn_x(ticks_away):
 	return spawn_x * float(ticks_away) / ticks_on_screen
 
+func get_ledger_lines(clef: int, note_step: String, octave: int) -> int:
+	# Define the reference line note and octave for each clef
+	var clef_reference = {
+		TREBLE: {"note": "E", "octave": 4},  # bottom line is E4
+		TENOR: {"note": "E", "octave": 3},   # bottom line is E3
+		BASS: {"note": "G", "octave": 2},    # bottom line is G2
+	}
+
+	# Map note steps to numbers (C=0, D=1, ..., B=6)
+	var note_to_number = {"C": 0, "D": 1, "E": 2, "F": 3, "G": 4, "A": 5, "B": 6}
+
+	# Calculate the total staff step difference from the clef's reference
+	var ref = clef_reference[clef]
+	var ref_step = note_to_number[ref["note"]]
+	var input_step = note_to_number[note_step]
+	var total_steps = (octave - ref["octave"]) * 7 + (input_step - ref_step)
+
+	# In standard 5-line staves, the lines go from position 0 (bottom line) to position 8 (top line)
+	# Positions -1 and 9 are the spaces just outside the staff; ledger lines start beyond that.
+	var staff_range = 8
+	
+	return max(0, total_steps - staff_range, -total_steps)
+
 # This function spawns one note at a time.
 func spawn_note(note_data, ticks_away=ticks_on_screen) -> void:
 	var note_instance = note_scene.instantiate()
@@ -90,8 +117,9 @@ func spawn_note(note_data, ticks_away=ticks_on_screen) -> void:
 		var alter = pitch_data["alter"]
 		var midi = y_pos_calculator.get_midi_note(step, octave, alter)
 		midi -= note_data["accidental"]  # Adjust for accidental; e.g., if it's flat, it is displayed a little higher
+		var ledger = get_ledger_lines(clef, step, octave)
 		y_pos = y_pos_calculator.get_abs_y_pos(midi)
-		note_instance.set_sprite(note_data["duration"], divisions, note_data["accidental"], alter, note_data["stem_is_up"])
+		note_instance.set_sprite(note_data["duration"], divisions, note_data["accidental"], alter, note_data["stem_is_up"], ledger)
 		
 	const y_adjust := 20
 	note_instance.position.y = y_pos + y_adjust

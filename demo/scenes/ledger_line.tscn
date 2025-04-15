@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://cnsithadfdgv0"]
+
+[node name="LedgerLine" type="Node2D"]
+
+[node name="Outline" type="Line2D" parent="."]
+position = Vector2(-460.402, -72.8192)
+scale = Vector2(1.18133, 2.47585)
+points = PackedVector2Array(0, 0, 500, 0)
+width = 50.0
+default_color = Color(0, 0, 0, 1)
+antialiased = true
+
+[node name="Line" type="Line2D" parent="."]
+position = Vector2(-415.069, -72.8192)
+points = PackedVector2Array(0, 0, 500, 0)
+width = 50.0
+antialiased = true

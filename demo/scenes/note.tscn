@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://ddyhnl4xu4o74"]
+[gd_scene load_steps=3 format=3 uid="uid://ddyhnl4xu4o74"]
 
 [ext_resource type="Script" path="res://scripts/note.gd" id="2_u3t2f"]
+[ext_resource type="PackedScene" uid="uid://cnsithadfdgv0" path="res://scenes/ledger_line.tscn" id="2_uoo84"]
 
 [node name="Note" type="Node2D"]
 position = Vector2(47, 21)
@@ -8,17 +9,44 @@ scale = Vector2(0.274653, 0.274653)
 script = ExtResource("2_u3t2f")
 
 [node name="Label" type="Label" parent="."]
-offset_left = -560.708
-offset_top = -549.785
-offset_right = 2165.29
-offset_bottom = 812.216
+z_index = 1
+offset_left = -360.455
+offset_top = -1048.6
+offset_right = 2365.55
+offset_bottom = 313.405
 pivot_offset = Vector2(180, 980)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 200
 theme_override_font_sizes/font_size = 1000
-text = "𝅁"
+text = "𝅘𝅥"
+
+[node name="Ledgers" type="Node2D" parent="Label"]
+
+[node name="LedgerLine1" parent="Label/Ledgers" instance=ExtResource("2_uoo84")]
+position = Vector2(360.455, 1048.6)
+
+[node name="InLabel" type="Label" parent="Label/Ledgers/LedgerLine1"]
+z_index = 1
+offset_left = -367.737
+offset_top = -1030.39
+offset_right = 2358.26
+offset_bottom = 331.61
+pivot_offset = Vector2(180, 980)
+theme_override_font_sizes/font_size = 980
+text = "𝅘"
+
+[node name="LedgerLine2" parent="Label/Ledgers" instance=ExtResource("2_uoo84")]
+position = Vector2(360.455, 833.779)
+
+[node name="Inline" type="Line2D" parent="Label/Ledgers/LedgerLine2"]
+position = Vector2(-458.761, -72.8192)
+scale = Vector2(1.18133, 2.47585)
+points = PackedVector2Array(294.187, -1.52588e-05, 337.336, -1.52588e-05)
+width = 50.0
+antialiased = true
 
 [node name="AccidentalLabel" type="Label" parent="."]
+z_index = 1
 offset_left = -1981.0
 offset_top = -375.019
 offset_right = -303.0
