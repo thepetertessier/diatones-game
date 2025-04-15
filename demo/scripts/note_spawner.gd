@@ -70,23 +70,25 @@ func set_ticks_and_notes(song_info: Dictionary) -> void:
 
 # This function spawns one note at a time.
 func spawn_note(note_data, ticks_away=ticks_on_screen) -> void:
-	#TODO: implement rest
-	if note_data["is_rest"]:
-		return
-	
 	var note_instance = note_scene.instantiate()
 	note_instance.position.x = spawn_x * float(ticks_away) / ticks_on_screen
 	add_child(note_instance)
-	var pitch_data = note_data["pitch"]
-	var step = pitch_data["step"]
-	var octave = pitch_data["octave"]
-	var alter = pitch_data["alter"]
-	var midi = y_pos_calculator.get_midi_note(step, octave, alter)
-	midi -= note_data["accidental"]  # Adjust for accidental; e.g., if it's flat, it is displayed a little higher
-	var y_pos = y_pos_calculator.get_abs_y_pos(midi)
+	var y_pos = 150
+	
+	if note_data["is_rest"]:
+		note_instance.set_rest(note_data["type"])
+	else:
+		var pitch_data = note_data["pitch"]
+		var step = pitch_data["step"]
+		var octave = pitch_data["octave"]
+		var alter = pitch_data["alter"]
+		var midi = y_pos_calculator.get_midi_note(step, octave, alter)
+		midi -= note_data["accidental"]  # Adjust for accidental; e.g., if it's flat, it is displayed a little higher
+		y_pos = y_pos_calculator.get_abs_y_pos(midi)
+		note_instance.set_sprite(note_data["duration"], divisions, note_data["accidental"], alter, note_data["stem_is_up"])
+		
 	const y_adjust := 20
 	note_instance.position.y = y_pos + y_adjust
-	note_instance.set_sprite(note_data["duration"], divisions, note_data["accidental"], alter, note_data["stem_is_up"])
 	
 	# Animate the note to move toward the target vertical line.
 	animate_note(note_instance, ticks_away)

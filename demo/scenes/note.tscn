@@ -8,13 +8,13 @@ scale = Vector2(0.274653, 0.274653)
 script = ExtResource("2_u3t2f")
 
 [node name="Label" type="Label" parent="."]
-offset_left = -353.173
-offset_top = -1059.52
-offset_right = 177.827
-offset_bottom = 302.481
+offset_left = -560.708
+offset_top = -549.785
+offset_right = 2165.29
+offset_bottom = 812.216
 pivot_offset = Vector2(180, 980)
 theme_override_font_sizes/font_size = 1000
-text = "𝅘𝅥𝅮"
+text = "𝅁"
 
 [node name="AccidentalLabel" type="Label" parent="."]
 offset_left = -1981.0
