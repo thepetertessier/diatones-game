@@ -34,6 +34,8 @@ func set_data(song_info) -> void:
 	ticks_on_screen = beats_on_screen*divisions
 	travel_time = beats_on_screen * seconds_per_beat
 	note_scene = preload("res://scenes/note.tscn")
+
+func start():
 	spawn_preliminary_notes()
 
 func spawn_preliminary_notes():

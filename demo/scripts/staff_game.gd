@@ -14,7 +14,9 @@ extends Node2D
 @onready var music_player: AudioStreamPlayer = %MusicPlayer
 @onready var note_spawner: Node2D = %NoteSpawner
 
-func set_song_and_start(new_music_xml: String, new_music_mp3: AudioStreamMP3) -> void:
+var bpm: float
+
+func set_song(new_music_xml: String, new_music_mp3: AudioStreamMP3) -> void:
 	music_xml = new_music_xml
 	music_mp3 = new_music_mp3
 
@@ -30,7 +32,11 @@ func set_song_and_start(new_music_xml: String, new_music_mp3: AudioStreamMP3) ->
 	y_pos_calculator.set_data(staff.get_top_staff_y(), staff.get_bottom_staff_y(), clef_manager.note_offset, key_manager.key)
 	note_spawner.set_data(song_info)
 	music_player.stream = music_mp3
-	conductor.start(song_info["bpm"])
+	bpm = song_info["bpm"]
+
+func start():
+	note_spawner.start()
+	conductor.start(bpm)
 
 func set_pitch_dot_y(midi: float):
 	var new_y = y_pos_calculator.get_abs_y_pos(midi)
