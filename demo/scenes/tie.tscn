@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://qt23w6ljerpi"]
+
+[ext_resource type="Script" path="res://scripts/tie.gd" id="1_mwawe"]
+[ext_resource type="Script" path="res://scripts/tie_path.gd" id="2_vdlkj"]
+
+[sub_resource type="Curve2D" id="Curve2D_r3phy"]
+_data = {
+"points": PackedVector2Array(-66.629, -299.672, 100, 100, 0, 0, 0, 0, 0, 0, 200, 6)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_spst2"]
+_data = {
+"points": PackedVector2Array(0, 0, 100, 100, 0, 0, 0, 0, 0, 0, 200, 0)
+}
+point_count = 2
+
+[node name="Tie" type="Node2D"]
+script = ExtResource("1_mwawe")
+
+[node name="Line2D" type="Line2D" parent="."]
+visible = false
+
+[node name="Path2D" type="Path2D" parent="Line2D"]
+curve = SubResource("Curve2D_r3phy")
+
+[node name="TiePath" type="Path2D" parent="."]
+position = Vector2(-166, 99)
+scale = Vector2(4.06, 4.18702)
+curve = SubResource("Curve2D_spst2")
+script = ExtResource("2_vdlkj")

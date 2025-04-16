@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cl7vaj76sh0f4"]
+
+[ext_resource type="Script" path="res://scripts/tie_path.gd" id="1_1ryal"]
+
+[sub_resource type="Curve2D" id="Curve2D_spst2"]
+_data = {
+"points": PackedVector2Array(0, 0, 100, 100, 0, 0, 0, 0, 0, 0, 200, 0)
+}
+point_count = 2
+
+[node name="TiePath" type="Path2D"]
+scale = Vector2(4.06, 4.18702)
+curve = SubResource("Curve2D_spst2")
+script = ExtResource("1_1ryal")

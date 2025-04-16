@@ -15,7 +15,7 @@ func _ready():
 	ledger_line_2.set_visible(false)
 
 func accidental_to_str(accidental) -> String:
-	return ['♭♭', '♭', '♮', '♯', '♯♯'][accidental+2]
+	return ['𝄫', '♭', '♮', '♯', '𝄪'][accidental+2]
 
 func set_sprite(type: String, accidental: int, true_alter: int, stem_is_up: bool, ledger: int) -> void:
 	const note_chars = {

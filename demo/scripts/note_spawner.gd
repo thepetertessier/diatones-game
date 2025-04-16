@@ -19,6 +19,7 @@ var ticks_on_screen: int
 var finished := false
 var note_scene: PackedScene
 var measure_bar_scene: PackedScene
+var tie_scene: PackedScene
 var beats: int
 var clef: int
 
@@ -41,6 +42,7 @@ func set_data(song_info) -> void:
 	travel_time = beats_on_screen * seconds_per_beat
 	note_scene = preload("res://scenes/note.tscn")
 	measure_bar_scene = preload("res://scenes/vertical_staff_line.tscn")
+	tie_scene = preload("res://scenes/tie.tscn")
 
 func start():
 	spawn_all_ready_notes()
@@ -120,6 +122,12 @@ func spawn_note(note_data, ticks_away=ticks_on_screen) -> void:
 		var ledger = get_ledger_lines(clef, step, octave)
 		y_pos = y_pos_calculator.get_abs_y_pos(midi)
 		note_instance.set_sprite(note_data["type"], note_data["accidental"], alter, note_data["stem_is_up"], ledger)
+		
+		if note_data["tie"] == "start":
+			var tie = tie_scene.instantiate()
+			if not note_data["stem_is_up"]:
+				tie.flip()
+			note_instance.add_child(tie)
 		
 	const y_adjust := 20
 	note_instance.position.y = y_pos + y_adjust
