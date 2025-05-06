@@ -5,9 +5,9 @@
 [ext_resource type="PackedScene" uid="uid://c0tnbuh63diub" path="res://scenes/pitch_dot.tscn" id="4_84sfh"]
 [ext_resource type="PackedScene" uid="uid://px54gbcrgf4w" path="res://scenes/pitch_detector.tscn" id="4_npvsp"]
 [ext_resource type="Script" path="res://scripts/accidentals.gd" id="5_qxppk"]
-[ext_resource type="Texture2D" uid="uid://js6o68b0euu5" path="res://assets/images/flat.svg" id="6_dyas1"]
-[ext_resource type="Texture2D" uid="uid://by6awet4ld76y" path="res://assets/images/sharp.svg" id="7_6blyx"]
+[ext_resource type="Texture2D" uid="uid://3hdcqlt5bkxm" path="res://assets/images/flat (2).svg" id="7_vpmom"]
 [ext_resource type="Script" path="res://scripts/time_signature_manager.gd" id="8_t60ii"]
+[ext_resource type="Texture2D" uid="uid://britxrbkoyrnq" path="res://assets/images/sharp (2).svg" id="8_vcmb0"]
 [ext_resource type="FontFile" uid="uid://d15wmog8oopvj" path="res://assets/fonts/Lobster-Regular.ttf" id="9_w37tv"]
 [ext_resource type="Script" path="res://scripts/clef_manager.gd" id="10_ml4xt"]
 [ext_resource type="FontFile" uid="uid://bjdvfistdy4dj" path="res://assets/fonts/NotoMusic-Regular.ttf" id="11_qarql"]
@@ -84,98 +84,94 @@ unique_name_in_owner = true
 [node name="KeyManager" type="Node2D" parent="."]
 unique_name_in_owner = true
 script = ExtResource("5_qxppk")
+key = -5
 
 [node name="Flats" type="Node2D" parent="KeyManager"]
 
 [node name="Flat1" type="Sprite2D" parent="KeyManager/Flats"]
-visible = false
 position = Vector2(300, 130)
-scale = Vector2(0.16, 0.16)
-texture = ExtResource("6_dyas1")
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("7_vpmom")
 
 [node name="Flat2" type="Sprite2D" parent="KeyManager/Flats"]
-visible = false
 position = Vector2(360, 15)
-scale = Vector2(0.16, 0.16)
-texture = ExtResource("6_dyas1")
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("7_vpmom")
 
 [node name="Flat3" type="Sprite2D" parent="KeyManager/Flats"]
-visible = false
 position = Vector2(420, 165)
-scale = Vector2(0.16, 0.16)
-texture = ExtResource("6_dyas1")
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("7_vpmom")
 
 [node name="Flat4" type="Sprite2D" parent="KeyManager/Flats"]
-visible = false
 position = Vector2(480, 55)
-scale = Vector2(0.16, 0.16)
-texture = ExtResource("6_dyas1")
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("7_vpmom")
 
 [node name="Flat5" type="Sprite2D" parent="KeyManager/Flats"]
-visible = false
 position = Vector2(540, 205)
-scale = Vector2(0.16, 0.16)
-texture = ExtResource("6_dyas1")
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("7_vpmom")
 
 [node name="Flat6" type="Sprite2D" parent="KeyManager/Flats"]
 visible = false
 position = Vector2(600, 90)
-scale = Vector2(0.16, 0.16)
-texture = ExtResource("6_dyas1")
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("7_vpmom")
 
 [node name="Flat7" type="Sprite2D" parent="KeyManager/Flats"]
 visible = false
 position = Vector2(660, 240)
-scale = Vector2(0.16, 0.16)
-texture = ExtResource("6_dyas1")
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("7_vpmom")
 
 [node name="Sharps" type="Node2D" parent="KeyManager"]
 
 [node name="Sharp1" type="Sprite2D" parent="KeyManager/Sharps"]
 visible = false
 position = Vector2(300, -1.99998)
-scale = Vector2(0.16, 0.16)
-texture = ExtResource("7_6blyx")
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("8_vcmb0")
 
 [node name="Sharp2" type="Sprite2D" parent="KeyManager/Sharps"]
 visible = false
 position = Vector2(360, 110)
-scale = Vector2(0.16, 0.16)
-texture = ExtResource("7_6blyx")
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("8_vcmb0")
 
 [node name="Sharp3" type="Sprite2D" parent="KeyManager/Sharps"]
 visible = false
 position = Vector2(420, -40)
-scale = Vector2(0.16, 0.16)
-texture = ExtResource("7_6blyx")
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("8_vcmb0")
 
 [node name="Sharp4" type="Sprite2D" parent="KeyManager/Sharps"]
 visible = false
 position = Vector2(480, 73)
-scale = Vector2(0.16, 0.16)
-texture = ExtResource("7_6blyx")
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("8_vcmb0")
 
 [node name="Sharp5" type="Sprite2D" parent="KeyManager/Sharps"]
 visible = false
 position = Vector2(540, 185)
-scale = Vector2(0.16, 0.16)
-texture = ExtResource("7_6blyx")
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("8_vcmb0")
 
 [node name="Sharp6" type="Sprite2D" parent="KeyManager/Sharps"]
 visible = false
 position = Vector2(600, 35)
-scale = Vector2(0.16, 0.16)
-texture = ExtResource("7_6blyx")
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("8_vcmb0")
 
 [node name="Sharp7" type="Sprite2D" parent="KeyManager/Sharps"]
 visible = false
 position = Vector2(660, 148)
-scale = Vector2(0.16, 0.16)
-texture = ExtResource("7_6blyx")
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("8_vcmb0")
 
 [node name="TimeSignatureManager" type="Node2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(300, 0)
+position = Vector2(600, 0)
 script = ExtResource("8_t60ii")
 
 [node name="BeatsLabel" type="Label" parent="TimeSignatureManager"]
@@ -183,6 +179,7 @@ offset_top = -44.0
 offset_right = 97.0
 offset_bottom = 194.0
 theme = SubResource("Theme_xixxi")
+theme_override_constants/outline_size = 30
 text = "4"
 
 [node name="BeatTypeLabel" type="Label" parent="TimeSignatureManager"]
@@ -190,6 +187,7 @@ offset_top = 106.0
 offset_right = 97.0
 offset_bottom = 344.0
 theme = SubResource("Theme_xixxi")
+theme_override_constants/outline_size = 30
 text = "4"
 
 [node name="ClefManager" type="Node2D" parent="."]
@@ -200,6 +198,7 @@ script = ExtResource("10_ml4xt")
 offset_top = -114.0
 offset_right = 213.0
 offset_bottom = 423.0
+theme_override_constants/outline_size = 30
 theme_override_fonts/font = ExtResource("11_qarql")
 theme_override_font_sizes/font_size = 300
 text = "𝄞"
