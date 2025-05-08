@@ -36,6 +36,8 @@ func get_midi_from_pitch_data(pitch_data: Dictionary) -> float:
 	)
 
 func score_note(detected_midi: float) -> void:
+	if not currently_detecting_voice:
+		detected_midi = MIDI_REST
 	var note_score = get_note_score(detected_midi, current_target_midi)
 	cumulative_score += note_score
 	note_count += 1

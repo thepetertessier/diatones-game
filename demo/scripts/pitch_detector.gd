@@ -18,10 +18,10 @@ var thread_should_stop := false
 # Shared variable for pitch, protected by a Mutex
 var latest_midi: float = -999
 var pitch_mutex := Mutex.new()
-var latest_midi_main: float = -999
+#var latest_midi_main: float = -999
 
 var latest_db: float = -80.0
-var latest_db_main: float = -80.0
+#var latest_db_main: float = -80.0
 var db_mutex := Mutex.new()
 
 func _ready():
@@ -92,15 +92,15 @@ func _process(delta):
 	var midi = latest_midi
 	pitch_mutex.unlock()
 	
-	if midi != latest_midi_main:
-		latest_midi_main = midi
-		midi_updated.emit(midi)
+	#if midi != latest_midi_main:
+	#latest_midi_main = midi
+	midi_updated.emit(midi)
 		#print("Detected pitch:", midi)
 	
 	db_mutex.lock()
 	var db = latest_db
 	db_mutex.unlock()
 	
-	if db != latest_db_main:
-		latest_db_main = db
-		db_updated.emit(db)
+	#if db != latest_db_main:
+	#latest_db_main = db
+	db_updated.emit(db)
