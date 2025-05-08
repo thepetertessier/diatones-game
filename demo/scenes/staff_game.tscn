@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cuvdi3qyruxps"]
+[gd_scene load_steps=24 format=3 uid="uid://cuvdi3qyruxps"]
 
 [ext_resource type="PackedScene" uid="uid://cps1bh5tcsvsb" path="res://scenes/staff.tscn" id="1_gwgkl"]
 [ext_resource type="Script" path="res://scripts/staff_game.gd" id="1_j4qfa"]
@@ -11,6 +11,7 @@
 [ext_resource type="FontFile" uid="uid://d15wmog8oopvj" path="res://assets/fonts/Lobster-Regular.ttf" id="9_w37tv"]
 [ext_resource type="Script" path="res://scripts/clef_manager.gd" id="10_ml4xt"]
 [ext_resource type="FontFile" uid="uid://bjdvfistdy4dj" path="res://assets/fonts/NotoMusic-Regular.ttf" id="11_qarql"]
+[ext_resource type="Script" path="res://scripts/song_scorer.gd" id="12_1n1ao"]
 [ext_resource type="PackedScene" uid="uid://d2qtjyn16a672" path="res://scenes/song_generator.tscn" id="12_iandj"]
 [ext_resource type="Script" path="res://scripts/note_spawner.gd" id="12_o8mnf"]
 [ext_resource type="PackedScene" uid="uid://b4pg1b7o8aq63" path="res://scenes/conductor.tscn" id="15_kw7yq"]
@@ -148,6 +149,10 @@ bus = &"Music"
 
 [node name="Timer" type="Timer" parent="PitchHitX/NoteSpawner"]
 
+[node name="SongScorer" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("12_1n1ao")
+
 [node name="SongGenerator" parent="." instance=ExtResource("12_iandj")]
 
 [node name="YPosCalculator" type="Node" parent="."]
@@ -244,5 +249,6 @@ texture = ExtResource("8_vcmb0")
 
 [connection signal="db_updated" from="PitchDetector" to="." method="_on_pitch_detector_db_updated"]
 [connection signal="midi_updated" from="PitchDetector" to="." method="_on_pitch_detector_midi_updated"]
+[connection signal="note_hit" from="PitchHitX/NoteSpawner" to="SongScorer" method="_on_note_spawner_note_hit"]
 [connection signal="beat_hit" from="PitchHitX/NoteSpawner/Conductor" to="PitchHitX/NoteSpawner" method="_on_conductor_beat_hit"]
 [connection signal="timeout" from="PitchHitX/NoteSpawner/Timer" to="PitchHitX/NoteSpawner" method="_on_timer_timeout"]

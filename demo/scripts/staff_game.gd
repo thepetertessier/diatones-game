@@ -14,6 +14,7 @@ extends Node2D
 @onready var note_spawner: Node2D = %NoteSpawner
 @onready var pitch_detector: PitchDetector = %PitchDetector
 @onready var pitch_dot: Node2D = %PitchDot
+@onready var song_scorer: SongScorer = %SongScorer
 
 var bpm: float
 
@@ -32,6 +33,7 @@ func set_song(new_music_xml: String, new_music_mp3: AudioStreamMP3) -> void:
 	
 	y_pos_calculator.set_data(staff.get_top_staff_y(), staff.get_bottom_staff_y(), clef_manager.note_offset, key_manager.key)
 	note_spawner.set_data(song_info)
+	song_scorer.set_data(song_info)
 	music_player.stream = music_mp3
 	bpm = song_info["bpm"]
 
@@ -45,6 +47,7 @@ func set_pitch_dot_y(midi: float):
 
 func _on_pitch_detector_midi_updated(new_midi: float) -> void:
 	set_pitch_dot_y(new_midi)
+	song_scorer.score_note(new_midi)
 	
 func db_to_percentage(db: float) -> float:
 	var min_db := -60.0  # Set a noise floor (ignore anything quieter than this)
@@ -57,4 +60,6 @@ func db_to_percentage(db: float) -> float:
 
 func _on_pitch_detector_db_updated(new_db: float) -> void:
 	#print("Db: ", new_db)
-	pitch_dot.set_particle_amount(db_to_percentage(new_db))
+	var db_percentage := db_to_percentage(new_db)
+	pitch_dot.set_particle_amount(db_percentage)
+	song_scorer.currently_detecting_voice = bool(db_percentage)

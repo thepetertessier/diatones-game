@@ -1,4 +1,7 @@
+class_name NoteSpawner
 extends Node2D
+
+signal note_hit(note_data: Dictionary)
 
 @onready var timer: Timer = $Timer
 @onready var y_pos_calculator: Node = %YPosCalculator
@@ -133,10 +136,10 @@ func spawn_note(note_data, ticks_away=ticks_on_screen) -> void:
 	note_instance.position.y = y_pos + y_adjust
 	
 	# Animate the note to move toward the target vertical line.
-	animate_note(note_instance, ticks_away)
+	animate_note(note_instance, ticks_away, 0.0, note_data)
 
 # Animate the note instance so that it reaches the target at the right time.
-func animate_note(note_instance: Node2D, ticks_away: int, x_adjust := 0.0) -> void:
+func animate_note(note_instance: Node2D, ticks_away: int, x_adjust := 0.0, note_data := {}) -> void:
 	# Compute the target position. In this case, we only change the x coordinate.
 	note_instance.position.x += get_adjusted_spawn_x(ticks_away) + x_adjust
 	var target_position = note_instance.position
@@ -149,6 +152,8 @@ func animate_note(note_instance: Node2D, ticks_away: int, x_adjust := 0.0) -> vo
 	tween.tween_property(note_instance, "position", target_position, adjusted_travel_time)
 	tween.tween_property(note_instance, "scale", Vector2(), tick_duration)
 	tween.parallel().tween_property(note_instance, "position", Vector2(target_position.x-50, target_position.y), tick_duration)
+	if note_data:
+		tween.parallel().tween_callback(note_hit.emit.bind(note_data))
 	tween.tween_callback(note_instance.queue_free)
 	
 func spawn_next_note_if_ready() -> bool:

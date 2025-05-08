@@ -126,6 +126,7 @@ theme_override_colors/icon_pressed_color = Color(0.293963, 0.604784, 0.305861, 1
 theme_override_colors/icon_hover_color = Color(0.232306, 0.486735, 0.241953, 1)
 theme_override_colors/icon_hover_pressed_color = Color(0.232306, 0.486735, 0.241953, 1)
 theme_override_colors/icon_disabled_color = Color(0.0480716, 0.138785, 0.0514763, 1)
+theme_override_constants/outline_size = 20
 theme_override_fonts/font = ExtResource("6_ee3l0")
 theme_override_font_sizes/font_size = 100
 theme_override_styles/focus = SubResource("StyleBoxFlat_lclew")
