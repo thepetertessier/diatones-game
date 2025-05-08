@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://i5x87y2b6ovv"]
+
+[ext_resource type="PackedScene" uid="uid://bw6bvmfop5wps" path="res://scenes/sight_singing_game.tscn" id="1_fmu6q"]
+[ext_resource type="AudioStream" uid="uid://chrv55ty5iupo" path="res://assets/music/Full (With Solo) - my_god_can.mp3" id="2_ko6ek"]
+
+[node name="MyGodCanAltoEncounter" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SightSingingGame" parent="." instance=ExtResource("1_fmu6q")]
+layout_mode = 1
+music_xml = "res://assets/musicxml/With Solo - my_god_can-Piano.xml"
+music_mp3 = ExtResource("2_ko6ek")

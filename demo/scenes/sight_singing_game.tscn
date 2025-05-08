@@ -1,18 +1,83 @@
-[gd_scene load_steps=5 format=3 uid="uid://bw6bvmfop5wps"]
+[gd_scene load_steps=11 format=3 uid="uid://bw6bvmfop5wps"]
 
 [ext_resource type="Script" path="res://scripts/sight_singing_game.gd" id="1_llsvv"]
 [ext_resource type="AudioStream" uid="uid://c4ehkxcggktpr" path="res://assets/music/Locriana's Lament.mp3" id="2_luyq3"]
+[ext_resource type="Texture2D" uid="uid://dy0yj83ihbsm4" path="res://assets/images/music_kingdom_background.png" id="3_tx0fk"]
 [ext_resource type="VideoStream" path="res://assets/videos/clouds_scroll.ogv" id="5_72u8p"]
+[ext_resource type="FontFile" uid="uid://cmsoo2imrvh1w" path="res://assets/fonts/Lobster,Oleo_Script/Oleo_Script/OleoScript-Regular.ttf" id="6_ee3l0"]
 [ext_resource type="PackedScene" uid="uid://cuvdi3qyruxps" path="res://scenes/staff_game.tscn" id="9_ypylt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lclew"]
+bg_color = Color(0.180392, 0.388235, 0.188235, 1)
+border_width_left = 12
+border_width_top = 12
+border_width_right = 12
+border_width_bottom = 12
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ef0s"]
+bg_color = Color(0.0480716, 0.138785, 0.0514763, 1)
+border_width_left = 12
+border_width_top = 12
+border_width_right = 12
+border_width_bottom = 12
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e5c4o"]
+bg_color = Color(0.293963, 0.604784, 0.305861, 1)
+border_width_left = 12
+border_width_top = 12
+border_width_right = 12
+border_width_bottom = 12
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qehby"]
+bg_color = Color(0.232306, 0.486735, 0.241953, 1)
+border_width_left = 12
+border_width_top = 12
+border_width_right = 12
+border_width_bottom = 12
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [node name="SightSingingGame" type="Control"]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_llsvv")
 music_xml = "res://assets/musicxml/Locriana Tenor.xml"
 music_mp3 = ExtResource("2_luyq3")
 
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.65467, 0.512655, 0.837285, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_tx0fk")
+
 [node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+visible = false
 layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1088.0
@@ -40,13 +105,32 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 659.0
-offset_top = 454.0
-offset_right = 1174.0
-offset_bottom = 629.0
+offset_left = -204.0
+offset_top = -79.0
+offset_right = 204.0
+offset_bottom = 79.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 80
+theme_override_colors/icon_normal_color = Color(0.180392, 0.388235, 0.188235, 1)
+theme_override_colors/icon_focus_color = Color(0.180392, 0.388235, 0.188235, 1)
+theme_override_colors/icon_pressed_color = Color(0.293963, 0.604784, 0.305861, 1)
+theme_override_colors/icon_hover_color = Color(0.232306, 0.486735, 0.241953, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0.232306, 0.486735, 0.241953, 1)
+theme_override_colors/icon_disabled_color = Color(0.0480716, 0.138785, 0.0514763, 1)
+theme_override_fonts/font = ExtResource("6_ee3l0")
+theme_override_font_sizes/font_size = 100
+theme_override_styles/focus = SubResource("StyleBoxFlat_lclew")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxFlat_6ef0s")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_6ef0s")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_e5c4o")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_e5c4o")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_qehby")
+theme_override_styles/hover = SubResource("StyleBoxFlat_qehby")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_e5c4o")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_e5c4o")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_lclew")
+theme_override_styles/normal = SubResource("StyleBoxFlat_lclew")
 text = "Start"
+icon_alignment = 1
 
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]

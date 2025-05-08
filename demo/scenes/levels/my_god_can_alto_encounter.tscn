@@ -12,5 +12,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="SightSingingGame" parent="." instance=ExtResource("1_jr1ec")]
+layout_mode = 1
 music_xml = "res://assets/musicxml/With Solo - my_god_can-Alto.xml"
 music_mp3 = ExtResource("2_1i60f")

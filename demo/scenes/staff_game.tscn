@@ -81,6 +81,79 @@ unique_name_in_owner = true
 [node name="PitchDetector" parent="." instance=ExtResource("4_npvsp")]
 unique_name_in_owner = true
 
+[node name="TimeSignatureManager" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(600, 0)
+script = ExtResource("8_t60ii")
+
+[node name="BeatsLabel" type="Label" parent="TimeSignatureManager"]
+offset_top = -44.0
+offset_right = 97.0
+offset_bottom = 194.0
+theme = SubResource("Theme_xixxi")
+theme_override_constants/outline_size = 30
+text = "4"
+
+[node name="BeatTypeLabel" type="Label" parent="TimeSignatureManager"]
+offset_top = 106.0
+offset_right = 97.0
+offset_bottom = 344.0
+theme = SubResource("Theme_xixxi")
+theme_override_constants/outline_size = 30
+text = "4"
+
+[node name="ClefManager" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("10_ml4xt")
+
+[node name="ClefLabel" type="Label" parent="ClefManager"]
+offset_top = -114.0
+offset_right = 213.0
+offset_bottom = 423.0
+theme_override_constants/outline_size = 30
+theme_override_fonts/font = ExtResource("11_qarql")
+theme_override_font_sizes/font_size = 300
+text = "𝄞"
+
+[node name="PitchHitX" type="Node2D" parent="."]
+position = Vector2(860, 0)
+
+[node name="LineHit" type="Line2D" parent="PitchHitX"]
+points = PackedVector2Array(0, -75, 0, 0, 0, 75, 0, 150, 0, 225, 0, 300, 0, 375)
+width_curve = SubResource("Curve_al08q")
+default_color = Color(0.564706, 0.941176, 0.415686, 1)
+gradient = SubResource("Gradient_840bq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PitchHitX/LineHit"]
+libraries = {
+"": SubResource("AnimationLibrary_6u776")
+}
+autoplay = "line_flow"
+
+[node name="PitchDot" parent="PitchHitX" instance=ExtResource("4_84sfh")]
+unique_name_in_owner = true
+position = Vector2(0, 150)
+
+[node name="NoteSpawner" type="Node2D" parent="PitchHitX"]
+unique_name_in_owner = true
+script = ExtResource("12_o8mnf")
+
+[node name="Conductor" parent="PitchHitX/NoteSpawner" instance=ExtResource("15_kw7yq")]
+unique_name_in_owner = true
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="PitchHitX/NoteSpawner/Conductor"]
+unique_name_in_owner = true
+stream = ExtResource("16_6sa2d")
+bus = &"Music"
+
+[node name="Timer" type="Timer" parent="PitchHitX/NoteSpawner"]
+
+[node name="SongGenerator" parent="." instance=ExtResource("12_iandj")]
+
+[node name="YPosCalculator" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("17_2b8h1")
+
 [node name="KeyManager" type="Node2D" parent="."]
 unique_name_in_owner = true
 script = ExtResource("5_qxppk")
@@ -168,79 +241,6 @@ visible = false
 position = Vector2(660, 148)
 scale = Vector2(0.65, 0.65)
 texture = ExtResource("8_vcmb0")
-
-[node name="TimeSignatureManager" type="Node2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(600, 0)
-script = ExtResource("8_t60ii")
-
-[node name="BeatsLabel" type="Label" parent="TimeSignatureManager"]
-offset_top = -44.0
-offset_right = 97.0
-offset_bottom = 194.0
-theme = SubResource("Theme_xixxi")
-theme_override_constants/outline_size = 30
-text = "4"
-
-[node name="BeatTypeLabel" type="Label" parent="TimeSignatureManager"]
-offset_top = 106.0
-offset_right = 97.0
-offset_bottom = 344.0
-theme = SubResource("Theme_xixxi")
-theme_override_constants/outline_size = 30
-text = "4"
-
-[node name="ClefManager" type="Node2D" parent="."]
-unique_name_in_owner = true
-script = ExtResource("10_ml4xt")
-
-[node name="ClefLabel" type="Label" parent="ClefManager"]
-offset_top = -114.0
-offset_right = 213.0
-offset_bottom = 423.0
-theme_override_constants/outline_size = 30
-theme_override_fonts/font = ExtResource("11_qarql")
-theme_override_font_sizes/font_size = 300
-text = "𝄞"
-
-[node name="PitchHitX" type="Node2D" parent="."]
-position = Vector2(860, 0)
-
-[node name="LineHit" type="Line2D" parent="PitchHitX"]
-points = PackedVector2Array(0, -75, 0, 0, 0, 75, 0, 150, 0, 225, 0, 300, 0, 375)
-width_curve = SubResource("Curve_al08q")
-default_color = Color(0.564706, 0.941176, 0.415686, 1)
-gradient = SubResource("Gradient_840bq")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="PitchHitX/LineHit"]
-libraries = {
-"": SubResource("AnimationLibrary_6u776")
-}
-autoplay = "line_flow"
-
-[node name="PitchDot" parent="PitchHitX" instance=ExtResource("4_84sfh")]
-unique_name_in_owner = true
-position = Vector2(0, 150)
-
-[node name="NoteSpawner" type="Node2D" parent="PitchHitX"]
-unique_name_in_owner = true
-script = ExtResource("12_o8mnf")
-
-[node name="Conductor" parent="PitchHitX/NoteSpawner" instance=ExtResource("15_kw7yq")]
-unique_name_in_owner = true
-
-[node name="MusicPlayer" type="AudioStreamPlayer" parent="PitchHitX/NoteSpawner/Conductor"]
-unique_name_in_owner = true
-stream = ExtResource("16_6sa2d")
-bus = &"Music"
-
-[node name="Timer" type="Timer" parent="PitchHitX/NoteSpawner"]
-
-[node name="SongGenerator" parent="." instance=ExtResource("12_iandj")]
-
-[node name="YPosCalculator" type="Node" parent="."]
-unique_name_in_owner = true
-script = ExtResource("17_2b8h1")
 
 [connection signal="db_updated" from="PitchDetector" to="." method="_on_pitch_detector_db_updated"]
 [connection signal="midi_updated" from="PitchDetector" to="." method="_on_pitch_detector_midi_updated"]
