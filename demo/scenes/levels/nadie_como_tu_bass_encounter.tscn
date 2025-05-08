@@ -12,5 +12,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="SightSingingGame" parent="." instance=ExtResource("1_e6ve5")]
+layout_mode = 1
 music_xml = "res://assets/musicxml/Nadie_como_tu-Bass.xml"
 music_mp3 = ExtResource("2_4yk5k")
+song_title = "Nadie Como Tu (Bass)"

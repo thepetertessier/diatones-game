@@ -1,7 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://db2ttjw2sh3sv"]
 
 [sub_resource type="Gradient" id="Gradient_fooa7"]
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.893333, 0.893333, 0.893333, 0.893333, 0, 0, 0, 0)
 
 [node name="StaffLine" type="Line2D"]
 points = PackedVector2Array(0, 0, 4000, 0)

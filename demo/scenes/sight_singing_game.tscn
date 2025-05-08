@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bw6bvmfop5wps"]
+[gd_scene load_steps=12 format=3 uid="uid://bw6bvmfop5wps"]
 
 [ext_resource type="Script" path="res://scripts/sight_singing_game.gd" id="1_llsvv"]
 [ext_resource type="AudioStream" uid="uid://c4ehkxcggktpr" path="res://assets/music/Locriana's Lament.mp3" id="2_luyq3"]
@@ -54,6 +54,15 @@ corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_50foa"]
+bg_color = Color(0, 0, 0, 0.286275)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+expand_margin_left = 50.0
+expand_margin_right = 50.0
 
 [node name="SightSingingGame" type="Control"]
 layout_mode = 3
@@ -132,5 +141,26 @@ theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_lclew")
 theme_override_styles/normal = SubResource("StyleBoxFlat_lclew")
 text = "Start"
 icon_alignment = 1
+
+[node name="TitleLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -342.0
+offset_top = 66.0
+offset_right = 342.0
+offset_bottom = 205.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 10
+theme_override_constants/shadow_offset_y = 10
+theme_override_constants/outline_size = 35
+theme_override_constants/shadow_outline_size = 10
+theme_override_fonts/font = ExtResource("6_ee3l0")
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxFlat_50foa")
+text = "Locrana's Lament"
+horizontal_alignment = 1
 
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
